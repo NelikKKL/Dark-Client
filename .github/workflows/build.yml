@@ -1,0 +1,86 @@
+name: Build EaglercraftX (JS + WASM-GC clients)
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-js:
+    name: Build JS client (single-file offline)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Build single-file offline JS client
+        shell: cmd
+        run: gradlew.bat target_teavm_javascript:makeMainOfflineDownload --no-daemon --stacktrace
+
+      - name: Verify build output
+        shell: pwsh
+        run: |
+          $file = Get-ChildItem -Path "target_teavm_javascript/javascript" -Filter "EaglercraftX_1.8_Offline_en_US.html" -Recurse | Select-Object -First 1
+          if (-not $file) {
+            Write-Error "Offline JS build output not found!"
+            exit 1
+          }
+
+      - name: Upload JS client artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EaglercraftX-1.8-JS-Offline-Client
+          path: |
+            target_teavm_javascript/javascript/EaglercraftX_1.8_Offline_en_US.html
+            target_teavm_javascript/javascript/EaglercraftX_1.8_Offline_International.html
+          if-no-files-found: error
+          retention-days: 14
+
+  build-wasm:
+    name: Build WASM-GC client
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Build WASM-GC client bundle
+        shell: cmd
+        run: gradlew.bat target_teavm_wasm_gc:makeMainWasmClientBundle --no-daemon --stacktrace
+
+      - name: Verify build output
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "target_teavm_wasm_gc/javascript_dist")) {
+            Write-Error "WASM-GC build output folder not found!"
+            exit 1
+          }
+
+      - name: Package WASM-GC client into a single archive
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "target_teavm_wasm_gc/javascript_dist/*" -DestinationPath "EaglercraftX-1.8-WASM-GC-Client.zip"
+
+      - name: Upload WASM-GC client artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EaglercraftX-1.8-WASM-GC-Client
+          path: EaglercraftX-1.8-WASM-GC-Client.zip
+          if-no-files-found: error
+          retention-days: 14
