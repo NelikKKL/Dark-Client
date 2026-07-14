@@ -556,6 +556,8 @@ public class Minecraft implements IThreadListener {
 		this.mojangLogo = null;
 		this.loadingScreen = new LoadingScreenRenderer(this);
 
+		net.newblood.NewBloodClient.init();
+
 		while (Mouse.next())
 			;
 		while (Keyboard.next())
@@ -889,6 +891,8 @@ public class Minecraft implements IThreadListener {
 			this.entityRenderer.func_181560_a(this.timer.renderPartialTicks, i);
 		}
 
+		net.newblood.NewBloodClient.onRenderTick(this.timer.renderPartialTicks);
+
 		this.guiAchievement.updateAchievementWindow();
 		this.touchOverlayRenderer.render(displayWidth, displayHeight, scaledResolution);
 		GlStateManager.popMatrix();
@@ -1173,6 +1177,8 @@ public class Minecraft implements IThreadListener {
 		}
 
 		RateLimitTracker.tick();
+
+		net.newblood.NewBloodClient.onClientTick();
 
 		boolean isHostingLAN = LANServerController.isHostingLAN();
 		this.isGamePaused = !isHostingLAN && this.isSingleplayer() && this.theWorld != null && this.thePlayer != null

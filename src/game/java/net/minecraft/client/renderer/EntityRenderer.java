@@ -1258,6 +1258,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GlStateManager.pushMatrix();
 			RenderHelper.enableStandardItemLighting();
 			renderglobal.renderEntities(entity, frustum, partialTicks);
+			net.newblood.NewBloodClient.onWorldRender(partialTicks);
 			RenderHelper.disableStandardItemLighting();
 			this.disableLightmap();
 			GlStateManager.matrixMode(GL_MODELVIEW);
