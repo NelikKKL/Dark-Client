@@ -11,10 +11,10 @@ import net.newblood.module.settings.NumberSetting;
  */
 public class SpeedMine extends Module {
 
-	private final NumberSetting boost = new NumberSetting("Ускорение", 0.15, 0.0, 0.9, 0.05);
+	private final NumberSetting boost = new NumberSetting("Boost", 0.15, 0.0, 0.9, 0.05);
 
 	public SpeedMine() {
-		super("SpeedMine", "Ускоряет разрушение блоков", Category.MISC);
+		super("SpeedMine", "Speeds up block breaking", Category.MISC);
 		addSetting(boost);
 	}
 

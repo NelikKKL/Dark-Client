@@ -9,12 +9,12 @@ import net.newblood.module.settings.NumberSetting;
  */
 public class Velocity extends Module {
 
-	private final NumberSetting reduction = new NumberSetting("Снижение", 0.5, 0.0, 1.0, 0.05);
+	private final NumberSetting reduction = new NumberSetting("Reduction", 0.5, 0.0, 1.0, 0.05);
 	private double lastHealth = -1;
 	private int spikeTicks;
 
 	public Velocity() {
-		super("Velocity", "Снижает отталкивание при получении урона", Category.COMBAT);
+		super("Velocity", "Reduces knockback taken from hits", Category.COMBAT);
 		addSetting(reduction);
 	}
 

@@ -70,7 +70,7 @@ public class NewBloodClient {
 				mc.displayGuiScreen(new ClickGuiScreen());
 			} else if (mc.thePlayer != null) {
 				mc.thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED
-						+ "[NewBlood] Меню доступно только в локальном одиночном мире."));
+						+ "[NewBlood] Menu is only available in your own local singleplayer world."));
 			}
 		}
 		guiKeyWasDown = down;
@@ -116,7 +116,7 @@ public class NewBloodClient {
 		if (mc != null && mc.thePlayer != null) {
 			mc.thePlayer.addChatMessage(new ChatComponentText(
 					EnumChatFormatting.RED + "[NewBlood] " + m.getName()
-							+ " доступен только в твоём локальном одиночном мире (не на сервере, не в открытом LAN)."));
+							+ " is only available in your own local singleplayer world (not on a server, not with LAN open)."));
 		}
 	}
 
@@ -134,7 +134,7 @@ public class NewBloodClient {
 		lastSafeState = nowSafe;
 		if (!nowSafe && mc.thePlayer != null) {
 			mc.thePlayer.addChatMessage(new ChatComponentText(
-					EnumChatFormatting.YELLOW + "[NewBlood] Вышел из локального мира - все модули отключены."));
+					EnumChatFormatting.YELLOW + "[NewBlood] Left the local world - all modules disabled."));
 		}
 	}
 }

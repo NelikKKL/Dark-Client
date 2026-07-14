@@ -7,7 +7,7 @@ import net.newblood.module.Module;
 public class Jesus extends Module {
 
 	public Jesus() {
-		super("Jesus", "Ходить по воде как посуху", Category.MOVEMENT);
+		super("Jesus", "Walk on water as if it were solid ground", Category.MOVEMENT);
 	}
 
 	@Override

@@ -7,12 +7,12 @@ import net.newblood.module.settings.NumberSetting;
 
 public class AutoGapple extends Module {
 
-	private final NumberSetting healthThreshold = new NumberSetting("Здоровье", 10.0, 2.0, 18.0, 1.0);
+	private final NumberSetting healthThreshold = new NumberSetting("Health", 10.0, 2.0, 18.0, 1.0);
 	private int switchBackDelay;
 	private int previousSlot = -1;
 
 	public AutoGapple() {
-		super("AutoGapple", "Автоматически ест золотое яблоко при низком HP", Category.COMBAT);
+		super("AutoGapple", "Automatically eats a golden apple at low HP", Category.COMBAT);
 		addSetting(healthThreshold);
 	}
 

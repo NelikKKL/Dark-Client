@@ -5,12 +5,12 @@ import net.newblood.module.settings.NumberSetting;
 
 public class Fly extends Module {
 
-	private final NumberSetting speed = new NumberSetting("Скорость", 0.6, 0.1, 3.0, 0.05);
+	private final NumberSetting speed = new NumberSetting("Speed", 0.6, 0.1, 3.0, 0.05);
 	private boolean prevAllowFlying;
 	private boolean prevFlying;
 
 	public Fly() {
-		super("Fly", "Свободный полёт как в творческом режиме", Category.MOVEMENT);
+		super("Fly", "Free flight like in creative mode", Category.MOVEMENT);
 		addSetting(speed);
 	}
 

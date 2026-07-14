@@ -10,7 +10,7 @@ import net.newblood.module.Module;
 public class ItemPhysics extends Module {
 
 	public ItemPhysics() {
-		super("ItemPhysics", "Предметы подпрыгивают и вращаются заметнее", Category.RENDER);
+		super("ItemPhysics", "Dropped items bounce and spin more noticeably", Category.RENDER);
 	}
 
 	@Override

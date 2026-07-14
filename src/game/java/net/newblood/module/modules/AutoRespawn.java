@@ -6,7 +6,7 @@ import net.newblood.module.Module;
 public class AutoRespawn extends Module {
 
 	public AutoRespawn() {
-		super("AutoRespawn", "Мгновенный респавн после смерти", Category.MISC);
+		super("AutoRespawn", "Instantly respawns after death", Category.MISC);
 	}
 
 	@Override

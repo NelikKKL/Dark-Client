@@ -92,10 +92,10 @@ public abstract class Module {
 	}
 
 	public enum Category {
-		COMBAT("Бой"),
-		MOVEMENT("Движение"),
-		RENDER("Визуальные"),
-		MISC("Прочее");
+		COMBAT("Combat"),
+		MOVEMENT("Movement"),
+		RENDER("Render"),
+		MISC("Misc");
 
 		private final String name;
 		Category(String name) { this.name = name; }

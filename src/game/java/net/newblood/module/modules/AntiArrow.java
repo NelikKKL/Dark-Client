@@ -10,7 +10,7 @@ import net.newblood.module.Module;
 public class AntiArrow extends Module {
 
 	public AntiArrow() {
-		super("AntiArrow", "Уклонение от стрел мобов-стрелков", Category.COMBAT);
+		super("AntiArrow", "Dodges arrows shot by mobs", Category.COMBAT);
 	}
 
 	@Override

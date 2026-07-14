@@ -5,7 +5,7 @@ import net.newblood.module.Module;
 public class NoClip extends Module {
 
 	public NoClip() {
-		super("NoClip", "Проходить сквозь блоки", Category.MOVEMENT);
+		super("NoClip", "Pass through blocks", Category.MOVEMENT);
 	}
 
 	@Override

@@ -16,7 +16,7 @@ import net.newblood.module.settings.NumberSetting;
  */
 public class FreeCam extends Module {
 
-	private final NumberSetting speed = new NumberSetting("Скорость", 1.0, 0.2, 4.0, 0.2);
+	private final NumberSetting speed = new NumberSetting("Speed", 1.0, 0.2, 4.0, 0.2);
 
 	private double savedX, savedY, savedZ;
 	private float savedYaw, savedPitch;
@@ -24,7 +24,7 @@ public class FreeCam extends Module {
 	private boolean savedFlying, savedAllowFlying;
 
 	public FreeCam() {
-		super("FreeCam", "Свободная камера для осмотра местности", Category.RENDER);
+		super("FreeCam", "Free camera for scouting the area", Category.RENDER);
 		addSetting(speed);
 	}
 

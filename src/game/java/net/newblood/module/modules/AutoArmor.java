@@ -14,7 +14,7 @@ public class AutoArmor extends Module {
 	private int tickCounter;
 
 	public AutoArmor() {
-		super("AutoArmor", "Автоматически надевает лучшую броню из инвентаря", Category.COMBAT);
+		super("AutoArmor", "Automatically equips the best armor from your inventory", Category.COMBAT);
 	}
 
 	@Override

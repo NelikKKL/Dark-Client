@@ -12,7 +12,7 @@ public class FullLight extends Module {
 	private float savedGamma;
 
 	public FullLight() {
-		super("FullLight", "Полная яркость (fullbright)", Category.RENDER);
+		super("FullLight", "Full brightness (fullbright)", Category.RENDER);
 	}
 
 	@Override

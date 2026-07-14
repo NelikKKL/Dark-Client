@@ -6,7 +6,7 @@ import net.newblood.module.Module;
 public class AttackAnimation extends Module {
 
 	public AttackAnimation() {
-		super("AttackAnimation", "Более резкая анимация взмаха рукой", Category.RENDER);
+		super("AttackAnimation", "Snappier arm-swing animation", Category.RENDER);
 	}
 
 	@Override

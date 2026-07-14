@@ -15,7 +15,7 @@ public class AntiAim extends Module {
 	private final Random random = new Random();
 
 	public AntiAim() {
-		super("AntiAim", "Случайное вращение видимой модели тела", Category.COMBAT);
+		super("AntiAim", "Randomizes the visible body rotation", Category.COMBAT);
 	}
 
 	@Override

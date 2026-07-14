@@ -13,7 +13,7 @@ import net.newblood.module.Module;
 public class IceWalk extends Module {
 
 	public IceWalk() {
-		super("IceWalk", "Земля под ногами скользит как лёд", Category.MOVEMENT);
+		super("IceWalk", "Ground beneath you slides like ice", Category.MOVEMENT);
 	}
 
 	@Override

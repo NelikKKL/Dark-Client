@@ -9,7 +9,7 @@ public class JumpCircle extends Module {
 	private boolean wasOnGround = true;
 
 	public JumpCircle() {
-		super("JumpCircle", "Круг частиц при приземлении", Category.RENDER);
+		super("JumpCircle", "Particle ring on landing", Category.RENDER);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class AutoEat extends Module {
 	private int previousSlot = -1;
 
 	public AutoEat() {
-		super("AutoEat", "Автоеда при низком голоде (замена AutoTotem, которого нет в 1.8)", Category.COMBAT);
+		super("AutoEat", "Auto-eats food at low hunger (replaces AutoTotem, which does not exist in 1.8)", Category.COMBAT);
 	}
 
 	@Override

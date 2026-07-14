@@ -15,10 +15,10 @@ import net.newblood.module.settings.NumberSetting;
 /** Draws a line from the player's eyes to nearby mobs. */
 public class Tracers extends Module {
 
-	private final NumberSetting range = new NumberSetting("Дальность", 32.0, 8.0, 64.0, 4.0);
+	private final NumberSetting range = new NumberSetting("Range", 32.0, 8.0, 64.0, 4.0);
 
 	public Tracers() {
-		super("Tracers", "Линии от игрока к мобам поблизости", Category.RENDER);
+		super("Tracers", "Draws lines from the player to nearby mobs", Category.RENDER);
 		addSetting(range);
 	}
 

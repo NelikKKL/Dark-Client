@@ -5,7 +5,7 @@ import net.newblood.module.Module;
 public class Spider extends Module {
 
 	public Spider() {
-		super("Spider", "Взбираться по стенам при упоре в блок", Category.MOVEMENT);
+		super("Spider", "Climb walls when pressed against a block", Category.MOVEMENT);
 	}
 
 	@Override

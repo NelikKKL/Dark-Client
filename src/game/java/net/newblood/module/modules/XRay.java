@@ -24,7 +24,7 @@ import net.newblood.module.settings.NumberSetting;
  */
 public class XRay extends Module {
 
-	private final NumberSetting radius = new NumberSetting("Радиус", 12.0, 4.0, 20.0, 2.0);
+	private final NumberSetting radius = new NumberSetting("Radius", 12.0, 4.0, 20.0, 2.0);
 	private final List<OrePoint> cache = new ArrayList<>();
 	private int rescanTimer;
 
@@ -35,7 +35,7 @@ public class XRay extends Module {
 	}
 
 	public XRay() {
-		super("XRay", "Подсветка руды сквозь стены", Category.RENDER);
+		super("XRay", "Highlights ore through walls", Category.RENDER);
 		addSetting(radius);
 	}
 

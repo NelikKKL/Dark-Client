@@ -5,7 +5,7 @@ import net.newblood.module.Module;
 public class BunnyHop extends Module {
 
 	public BunnyHop() {
-		super("BunnyHop", "Автоматически прыгать при спринте", Category.MOVEMENT);
+		super("BunnyHop", "Automatically jumps while sprinting", Category.MOVEMENT);
 	}
 
 	@Override

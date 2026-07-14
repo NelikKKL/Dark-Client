@@ -5,7 +5,7 @@ import net.newblood.module.Module;
 public class NoFall extends Module {
 
 	public NoFall() {
-		super("NoFall", "Убирает урон от падения", Category.MOVEMENT);
+		super("NoFall", "Removes fall damage", Category.MOVEMENT);
 	}
 
 	@Override

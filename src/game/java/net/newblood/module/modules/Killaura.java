@@ -10,12 +10,12 @@ import net.newblood.module.settings.NumberSetting;
 
 public class Killaura extends Module {
 
-	private final NumberSetting range = new NumberSetting("Дальность", 4.0, 2.0, 6.0, 0.5);
-	private final NumberSetting cps = new NumberSetting("Ударов/сек", 8.0, 1.0, 20.0, 1.0);
+	private final NumberSetting range = new NumberSetting("Range", 4.0, 2.0, 6.0, 0.5);
+	private final NumberSetting cps = new NumberSetting("Hits/sec", 8.0, 1.0, 20.0, 1.0);
 	private int cooldown;
 
 	public Killaura() {
-		super("Killaura", "Автоатака ближайшей цели в радиусе", Category.COMBAT);
+		super("Killaura", "Auto-attacks the nearest target in range", Category.COMBAT);
 		addSetting(range);
 		addSetting(cps);
 	}

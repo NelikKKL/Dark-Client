@@ -14,10 +14,10 @@ import net.newblood.module.settings.NumberSetting;
 /** Draws a wireframe box around nearby living entities, visible through walls. */
 public class ESP extends Module {
 
-	private final NumberSetting range = new NumberSetting("Дальность", 32.0, 8.0, 64.0, 4.0);
+	private final NumberSetting range = new NumberSetting("Range", 32.0, 8.0, 64.0, 4.0);
 
 	public ESP() {
-		super("ESP", "Подсветка мобов сквозь стены", Category.RENDER);
+		super("ESP", "Highlights mobs through walls", Category.RENDER);
 		addSetting(range);
 	}
 

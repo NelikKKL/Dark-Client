@@ -6,11 +6,11 @@ import net.newblood.module.settings.NumberSetting;
 
 public class AutoClicker extends Module {
 
-	private final NumberSetting cps = new NumberSetting("Кликов/сек", 10.0, 1.0, 20.0, 1.0);
+	private final NumberSetting cps = new NumberSetting("Clicks/sec", 10.0, 1.0, 20.0, 1.0);
 	private int cooldown;
 
 	public AutoClicker() {
-		super("AutoClicker", "Автоматический клик, пока зажата кнопка мыши", Category.COMBAT);
+		super("AutoClicker", "Automatically clicks while the mouse button is held", Category.COMBAT);
 		addSetting(cps);
 	}
 

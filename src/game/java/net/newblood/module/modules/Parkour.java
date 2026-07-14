@@ -8,7 +8,7 @@ import net.newblood.module.Module;
 public class Parkour extends Module {
 
 	public Parkour() {
-		super("Parkour", "Автопрыжок на краях блоков при движении вперёд", Category.MOVEMENT);
+		super("Parkour", "Auto-jumps at block edges while moving forward", Category.MOVEMENT);
 	}
 
 	@Override

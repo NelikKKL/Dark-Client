@@ -10,7 +10,7 @@ public class Optimizer extends Module {
 	private int savedRenderDistance;
 
 	public Optimizer() {
-		super("Optimizer", "Снижает частицы и дальность прорисовки для FPS", Category.MISC);
+		super("Optimizer", "Reduces particles and render distance for better FPS", Category.MISC);
 	}
 
 	@Override

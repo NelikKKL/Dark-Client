@@ -56,7 +56,7 @@ public class ClickGuiScreen extends GuiScreen {
 		}
 
 		if (!safe) {
-			String msg = EnumChatFormatting.RED + "Заблокировано: ты не в своём локальном одиночном мире";
+			String msg = EnumChatFormatting.RED + "Locked: you are not in your own local singleplayer world";
 			drawRect(8, height - 20, 8 + fontRendererObj.getStringWidth(msg) + 8, height - 6, 0xAA000000);
 			drawString(fontRendererObj, msg, 12, height - 17, 0xFFFFFFFF);
 		}

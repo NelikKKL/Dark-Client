@@ -11,7 +11,7 @@ public class ClickTP extends Module {
 	private boolean wasDown;
 
 	public ClickTP() {
-		super("ClickTP", "Телепорт по средней кнопке мыши на точку прицела", Category.MOVEMENT);
+		super("ClickTP", "Middle-click teleport to your crosshair target", Category.MOVEMENT);
 	}
 
 	@Override
