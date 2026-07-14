@@ -1,6 +1,6 @@
 # Eaglercraft client 
 
-functions
+### functions
 
 Cheat on Rshift (Only local user world, in progress development ...)
 
