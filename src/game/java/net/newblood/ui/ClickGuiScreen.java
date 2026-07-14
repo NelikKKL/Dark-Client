@@ -65,7 +65,7 @@ public class ClickGuiScreen extends GuiScreen {
 	}
 
 	@Override
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws java.io.IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
 		super.mouseClicked(mouseX, mouseY, mouseButton);
 		if (mouseButton != 0) return;
 		if (!NewBloodClient.isSafeEnvironment()) return; // rows aren't clickable while locked
@@ -87,7 +87,7 @@ public class ClickGuiScreen extends GuiScreen {
 	}
 
 	@Override
-	protected void keyTyped(char typedChar, int keyCode) throws java.io.IOException {
+	protected void keyTyped(char typedChar, int keyCode) {
 		// 1 = ESC - always allow closing the GUI regardless of lock state
 		if (keyCode == 1) {
 			mc.displayGuiScreen(null);

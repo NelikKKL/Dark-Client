@@ -129,7 +129,7 @@ public class NewBloodClient {
 	}
 
 	/** Called by the watchdog whenever the safe/unsafe state flips, for chat feedback. */
-	void onSafeStateChanged(boolean nowSafe) {
+	public void onSafeStateChanged(boolean nowSafe) {
 		if (nowSafe == lastSafeState) return;
 		lastSafeState = nowSafe;
 		if (!nowSafe && mc.thePlayer != null) {

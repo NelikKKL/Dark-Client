@@ -53,7 +53,7 @@ public class XRay extends Module {
 		cache.clear();
 		if (mc.thePlayer == null || mc.theWorld == null) return;
 
-		int r = (int) radius.getValue();
+		int r = (int) (double) radius.getValue();
 		BlockPos center = new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ);
 
 		for (int x = -r; x <= r; x++) {
