@@ -221,6 +221,20 @@ public class Items {
 	public static Item prismarine_crystals;
 	public static Item banner;
 
+	// ===== NewBlood: Cherry Grove + Netherite content =====
+	public static Item cherry_door;
+	public static Item netherite_scrap;
+	public static Item netherite_ingot;
+	public static Item netherite_sword;
+	public static Item netherite_shovel;
+	public static Item netherite_pickaxe;
+	public static Item netherite_axe;
+	public static Item netherite_hoe;
+	public static ItemArmor netherite_helmet;
+	public static ItemArmor netherite_chestplate;
+	public static ItemArmor netherite_leggings;
+	public static ItemArmor netherite_boots;
+
 	private static Item getRegisteredItem(String name) {
 		return (Item) Item.itemRegistry.getObject(new ResourceLocation(name));
 	}
@@ -416,6 +430,20 @@ public class Items {
 			prismarine_shard = getRegisteredItem("prismarine_shard");
 			prismarine_crystals = getRegisteredItem("prismarine_crystals");
 			banner = getRegisteredItem("banner");
+
+			// ===== NewBlood: Cherry Grove + Netherite content =====
+			cherry_door = getRegisteredItem("cherry_door");
+			netherite_scrap = getRegisteredItem("netherite_scrap");
+			netherite_ingot = getRegisteredItem("netherite_ingot");
+			netherite_sword = getRegisteredItem("netherite_sword");
+			netherite_shovel = getRegisteredItem("netherite_shovel");
+			netherite_pickaxe = getRegisteredItem("netherite_pickaxe");
+			netherite_axe = getRegisteredItem("netherite_axe");
+			netherite_hoe = getRegisteredItem("netherite_hoe");
+			netherite_helmet = (ItemArmor) getRegisteredItem("netherite_helmet");
+			netherite_chestplate = (ItemArmor) getRegisteredItem("netherite_chestplate");
+			netherite_leggings = (ItemArmor) getRegisteredItem("netherite_leggings");
+			netherite_boots = (ItemArmor) getRegisteredItem("netherite_boots");
 		}
 	}
 }

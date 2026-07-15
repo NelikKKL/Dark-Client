@@ -227,6 +227,10 @@ public class BlockModelShapes {
 				(new StateMap.Builder()).ignore(new IProperty[] { BlockDoor.POWERED }).build());
 		this.registerBlockWithStateMapper(Blocks.iron_door,
 				(new StateMap.Builder()).ignore(new IProperty[] { BlockDoor.POWERED }).build());
+		this.registerBlockWithStateMapper(Blocks.cherry_door,
+				(new StateMap.Builder()).ignore(new IProperty[] { BlockDoor.POWERED }).build());
+		this.registerBlockWithStateMapper(Blocks.cherry_leaves, (new StateMap.Builder())
+				.ignore(new IProperty[] { BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE }).build());
 		this.registerBlockWithStateMapper(Blocks.wool,
 				(new StateMap.Builder()).withName(BlockColored.COLOR).withSuffix("_wool").build());
 		this.registerBlockWithStateMapper(Blocks.carpet,

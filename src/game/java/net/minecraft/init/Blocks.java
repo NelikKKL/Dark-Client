@@ -5,6 +5,9 @@ import net.minecraft.block.BlockBeacon;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCactus;
 import net.minecraft.block.BlockCauldron;
+import net.minecraft.block.BlockCherryLeaves;
+import net.minecraft.block.BlockCherryLog;
+import net.minecraft.block.BlockCherrySapling;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockDaylightDetector;
 import net.minecraft.block.BlockDeadBush;
@@ -19,6 +22,7 @@ import net.minecraft.block.BlockMycelium;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPistonExtension;
 import net.minecraft.block.BlockPistonMoving;
+import net.minecraft.block.BlockPinkPetals;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.block.BlockRedstoneComparator;
 import net.minecraft.block.BlockRedstoneRepeater;
@@ -254,6 +258,18 @@ public class Blocks {
 	public static BlockSlab double_stone_slab2;
 	public static BlockSlab stone_slab2;
 
+	// ===== NewBlood: Cherry Grove + Netherite content =====
+	public static Block cherry_planks;
+	public static BlockCherryLog cherry_log;
+	public static BlockCherryLog stripped_cherry_log;
+	public static BlockCherryLeaves cherry_leaves;
+	public static BlockCherrySapling cherry_sapling;
+	public static Block cherry_door;
+	public static Block cherry_trapdoor;
+	public static BlockPinkPetals pink_petals;
+	public static Block ancient_debris;
+	public static Block netherite_block;
+
 	/**+
 	 * Returns the Block in the blockRegistry with the specified
 	 * name.
@@ -464,6 +480,18 @@ public class Blocks {
 			red_sandstone_stairs = getRegisteredBlock("red_sandstone_stairs");
 			double_stone_slab2 = (BlockSlab) getRegisteredBlock("double_stone_slab2");
 			stone_slab2 = (BlockSlab) getRegisteredBlock("stone_slab2");
+
+			// ===== NewBlood: Cherry Grove + Netherite content =====
+			cherry_planks = getRegisteredBlock("cherry_planks");
+			cherry_log = (BlockCherryLog) getRegisteredBlock("cherry_log");
+			stripped_cherry_log = (BlockCherryLog) getRegisteredBlock("stripped_cherry_log");
+			cherry_leaves = (BlockCherryLeaves) getRegisteredBlock("cherry_leaves");
+			cherry_sapling = (BlockCherrySapling) getRegisteredBlock("cherry_sapling");
+			cherry_door = getRegisteredBlock("cherry_door");
+			cherry_trapdoor = getRegisteredBlock("cherry_trapdoor");
+			pink_petals = (BlockPinkPetals) getRegisteredBlock("pink_petals");
+			ancient_debris = getRegisteredBlock("ancient_debris");
+			netherite_block = getRegisteredBlock("netherite_block");
 		}
 	}
 }

@@ -37,6 +37,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.BlockPos;
+import net.newblood.content.GatedItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -1041,6 +1042,41 @@ public class Item {
 		registerItem(2265, (String) "record_ward", (new ItemRecord("ward")).setUnlocalizedName("record"));
 		registerItem(2266, (String) "record_11", (new ItemRecord("11")).setUnlocalizedName("record"));
 		registerItem(2267, (String) "record_wait", (new ItemRecord("wait")).setUnlocalizedName("record"));
+
+		// ===== NewBlood: Cherry Grove + Netherite content =====
+		registerItemBlock(Blocks.cherry_planks, new GatedItemBlock(Blocks.cherry_planks));
+		registerItemBlock(Blocks.cherry_log, new GatedItemBlock(Blocks.cherry_log));
+		registerItemBlock(Blocks.stripped_cherry_log, new GatedItemBlock(Blocks.stripped_cherry_log));
+		registerItemBlock(Blocks.cherry_leaves, new GatedItemBlock(Blocks.cherry_leaves));
+		registerItemBlock(Blocks.cherry_sapling, new GatedItemBlock(Blocks.cherry_sapling));
+		registerItemBlock(Blocks.cherry_trapdoor, new GatedItemBlock(Blocks.cherry_trapdoor));
+		registerItemBlock(Blocks.pink_petals, new GatedItemBlock(Blocks.pink_petals));
+		registerItemBlock(Blocks.ancient_debris, new GatedItemBlock(Blocks.ancient_debris));
+		registerItemBlock(Blocks.netherite_block, new GatedItemBlock(Blocks.netherite_block));
+
+		registerItem(426, (String) "netherite_scrap",
+				(new Item()).setUnlocalizedName("netheriteScrap").setCreativeTab(CreativeTabs.tabMaterials));
+		registerItem(432, (String) "netherite_ingot",
+				(new Item()).setUnlocalizedName("netheriteIngot").setCreativeTab(CreativeTabs.tabMaterials));
+		registerItem(433, (String) "netherite_sword",
+				(new ItemSword(Item.ToolMaterial.NETHERITE)).setUnlocalizedName("swordNetherite"));
+		registerItem(434, (String) "netherite_shovel",
+				(new ItemSpade(Item.ToolMaterial.NETHERITE)).setUnlocalizedName("shovelNetherite"));
+		registerItem(435, (String) "netherite_pickaxe",
+				(new ItemPickaxe(Item.ToolMaterial.NETHERITE)).setUnlocalizedName("pickaxeNetherite"));
+		registerItem(436, (String) "netherite_axe",
+				(new ItemAxe(Item.ToolMaterial.NETHERITE)).setUnlocalizedName("hatchetNetherite"));
+		registerItem(437, (String) "netherite_hoe",
+				(new ItemHoe(Item.ToolMaterial.NETHERITE)).setUnlocalizedName("hoeNetherite"));
+		registerItem(438, (String) "netherite_helmet",
+				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 0)).setUnlocalizedName("helmetNetherite"));
+		registerItem(439, (String) "netherite_chestplate",
+				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 1)).setUnlocalizedName("chestplateNetherite"));
+		registerItem(440, (String) "netherite_leggings",
+				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 2)).setUnlocalizedName("leggingsNetherite"));
+		registerItem(441, (String) "netherite_boots",
+				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 3)).setUnlocalizedName("bootsNetherite"));
+		registerItem(442, (String) "cherry_door", (new ItemDoor(Blocks.cherry_door)).setUnlocalizedName("doorCherry"));
 	}
 
 	/**+
@@ -1069,7 +1105,7 @@ public class Item {
 
 	public static enum ToolMaterial {
 		WOOD(0, 59, 2.0F, 0.0F, 15), STONE(1, 131, 4.0F, 1.0F, 5), IRON(2, 250, 6.0F, 2.0F, 14),
-		EMERALD(3, 1561, 8.0F, 3.0F, 10), GOLD(0, 32, 12.0F, 0.0F, 22);
+		EMERALD(3, 1561, 8.0F, 3.0F, 10), GOLD(0, 32, 12.0F, 0.0F, 22), NETHERITE(4, 2031, 9.0F, 4.0F, 15);
 
 		private final int harvestLevel;
 		private final int maxUses;
@@ -1107,6 +1143,9 @@ public class Item {
 		}
 
 		public Item getRepairItem() {
+			if (this == NETHERITE) {
+				return Items.netherite_ingot;
+			}
 			return this == WOOD ? Item.getItemFromBlock(Blocks.planks)
 					: (this == STONE ? Item.getItemFromBlock(Blocks.cobblestone)
 							: (this == GOLD ? Items.gold_ingot

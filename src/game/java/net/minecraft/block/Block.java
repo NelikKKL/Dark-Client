@@ -1546,6 +1546,27 @@ public class Block {
 				.setStepSound(soundTypeWood).setUnlocalizedName("doorAcacia").disableStats());
 		registerBlock(197, (String) "dark_oak_door", (new BlockDoor(Material.wood)).setHardness(3.0F)
 				.setStepSound(soundTypeWood).setUnlocalizedName("doorDarkOak").disableStats());
+
+		// ===== NewBlood: Cherry Grove + Netherite content =====
+		registerBlock(198, (String) "cherry_planks", (new Block(Material.wood)).setHardness(2.0F)
+				.setResistance(5.0F).setStepSound(soundTypeWood).setUnlocalizedName("plankCherry"));
+		registerBlock(199, (String) "cherry_log", (new BlockCherryLog()).setUnlocalizedName("logCherry"));
+		registerBlock(200, (String) "stripped_cherry_log",
+				(new BlockCherryLog()).setUnlocalizedName("strippedLogCherry"));
+		registerBlock(201, (String) "cherry_leaves", (new BlockCherryLeaves()).setUnlocalizedName("leavesCherry"));
+		registerBlock(202, (String) "cherry_sapling",
+				(new BlockCherrySapling()).setHardness(0.0F).setStepSound(soundTypeGrass)
+						.setUnlocalizedName("saplingCherry"));
+		registerBlock(203, (String) "cherry_door", (new BlockDoor(Material.wood)).setHardness(3.0F)
+				.setStepSound(soundTypeWood).setUnlocalizedName("doorCherry").disableStats());
+		registerBlock(204, (String) "cherry_trapdoor", (new BlockTrapDoor(Material.wood)).setHardness(3.0F)
+				.setStepSound(soundTypeWood).setUnlocalizedName("trapdoorCherry"));
+		registerBlock(205, (String) "pink_petals", (new BlockPinkPetals()).setUnlocalizedName("pinkPetals"));
+		registerBlock(206, (String) "ancient_debris", (new Block(Material.rock)).setHardness(30.0F)
+				.setResistance(1200.0F).setStepSound(soundTypeStone).setUnlocalizedName("ancientDebris"));
+		registerBlock(207, (String) "netherite_block", (new Block(Material.iron)).setHardness(50.0F)
+				.setResistance(1200.0F).setStepSound(soundTypeMetal).setUnlocalizedName("netheriteBlock"));
+
 		blockRegistry.validateKey();
 
 		for (Block block13 : blockRegistry) {

@@ -1,0 +1,19 @@
+{
+    "textures": {
+        "petals": "blocks/pink_petals",
+        "particle": "blocks/pink_petals"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 8, 16 ],
+            "faces": {
+                "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#petals", "cullface": "down" },
+                "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#petals" },
+                "north": { "uv": [ 0, 0, 16, 8 ], "texture": "#petals" },
+                "south": { "uv": [ 0, 0, 16, 8 ], "texture": "#petals" },
+                "west":  { "uv": [ 0, 0, 16, 8 ], "texture": "#petals" },
+                "east":  { "uv": [ 0, 0, 16, 8 ], "texture": "#petals" }
+            }
+        }
+    ]
+}
