@@ -1012,6 +1012,29 @@ public class RenderItem implements IResourceManagerReloadListener {
 		this.registerItem(Items.ghast_tear, "ghast_tear");
 		this.registerItem(Items.gold_nugget, "gold_nugget");
 		this.registerItem(Items.nether_wart, "nether_wart");
+
+		// ===== NewBlood: Cherry Grove + Netherite content =====
+		this.registerBlock(Blocks.cherry_planks, "cherry_planks");
+		this.registerBlock(Blocks.cherry_log, "cherry_log");
+		this.registerBlock(Blocks.stripped_cherry_log, "stripped_cherry_log");
+		this.registerBlock(Blocks.cherry_leaves, "cherry_leaves");
+		this.registerBlock(Blocks.cherry_sapling, "cherry_sapling");
+		this.registerBlock(Blocks.cherry_trapdoor, "cherry_trapdoor");
+		this.registerBlock(Blocks.pink_petals, "pink_petals");
+		this.registerBlock(Blocks.ancient_debris, "ancient_debris");
+		this.registerBlock(Blocks.netherite_block, "netherite_block");
+		this.registerItem(Items.cherry_door, "cherry_door");
+		this.registerItem(Items.netherite_scrap, "netherite_scrap");
+		this.registerItem(Items.netherite_ingot, "netherite_ingot");
+		this.registerItem(Items.netherite_sword, "netherite_sword");
+		this.registerItem(Items.netherite_shovel, "netherite_shovel");
+		this.registerItem(Items.netherite_pickaxe, "netherite_pickaxe");
+		this.registerItem(Items.netherite_axe, "netherite_axe");
+		this.registerItem(Items.netherite_hoe, "netherite_hoe");
+		this.registerItem(Items.netherite_helmet, "netherite_helmet");
+		this.registerItem(Items.netherite_chestplate, "netherite_chestplate");
+		this.registerItem(Items.netherite_leggings, "netherite_leggings");
+		this.registerItem(Items.netherite_boots, "netherite_boots");
 		this.itemModelMesher.register(Items.potionitem, new ItemMeshDefinition() {
 			public ModelResourceLocation getModelLocation(ItemStack itemstack) {
 				return ItemPotion.isSplash(itemstack.getMetadata())
