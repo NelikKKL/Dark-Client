@@ -79,7 +79,11 @@ public class GuiScreenEditCape extends GuiScreen {
 	}
 
 	public void drawScreen(int mx, int my, float partialTicks) {
-		drawDefaultBackground();
+		PanoramaRenderer.update();
+		GlStateManager.disableAlpha();
+		PanoramaRenderer.render(width, height, partialTicks);
+		GlStateManager.enableAlpha();
+		drawGradientRect(0, 0, width, height, 0x60000000, 0xC0101010);
 		drawCenteredString(fontRendererObj, screenTitle, width / 2, 15, 16777215);
 		drawString(fontRendererObj, I18n.format("editCape.playerCape"), width / 2 - 20, height / 6 + 36, 10526880);
 		

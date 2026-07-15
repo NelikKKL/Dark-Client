@@ -210,6 +210,8 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 		} catch (IOException e) {
 			;
 		}
+
+		this.enableBlur = false;
 	}
 
 	public static void doResourceReloadHack() {
