@@ -32,8 +32,18 @@ public class GatedItemBlock extends ItemBlock {
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side,
 			float hitX, float hitY, float hitZ) {
-		if (!NewBloodClient.isSafeEnvironment()) {
-			if (world.isRemote && player != null) {
+		// Only evaluate the gate on the client-side prediction call. The
+		// integrated (singleplayer) server processes this same placement
+		// independently, on its own World, running on its own thread/worker -
+		// isSafeEnvironment() reads the CLIENT's Minecraft singleton, which
+		// isn't meaningfully reachable from that context. Gating there too
+		// made the server silently reject every placement a tick after the
+		// client had already shown it, so the block popped back to air a
+		// moment later. This codebase's integrated server is always the
+		// player's own local world (a real remote server never runs this
+		// code), so it's safe to trust whatever the client already decided.
+		if (world.isRemote && !NewBloodClient.isSafeEnvironment()) {
+			if (player != null) {
 				player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED
 						+ "[NewBlood] This content is only available in your own local singleplayer world (not on a server, not with LAN open)."));
 			}

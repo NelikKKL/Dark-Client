@@ -114,7 +114,8 @@ public abstract class BlockLeaves extends BlockLeavesBase {
 								Block block = world
 										.getBlockState(blockpos$mutableblockpos.func_181079_c(j + k1, k + l1, l + i2))
 										.getBlock();
-								if (block != Blocks.log && block != Blocks.log2) {
+								if (block != Blocks.log && block != Blocks.log2 && block != Blocks.cherry_log
+										&& block != Blocks.stripped_cherry_log) {
 									if (block.getMaterial() == Material.leaves) {
 										this.surroundings[(k1 + j1) * i1 + (l1 + j1) * b1 + i2 + j1] = -2;
 									} else {
