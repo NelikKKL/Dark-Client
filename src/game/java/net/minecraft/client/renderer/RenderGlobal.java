@@ -475,6 +475,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
 			Blocks.leaves.setGraphicsLevel(mc.gameSettings.shaders || mc.gameSettings.fancyGraphics);
 			Blocks.leaves2.setGraphicsLevel(mc.gameSettings.shaders || mc.gameSettings.fancyGraphics);
+			// ===== NewBlood: Cherry Grove content =====
+			// cherry_leaves is a standalone BlockLeaves instance (not part of the
+			// leaves/leaves2 variant families) so it needs the same treatment,
+			// otherwise it never leaves its default non-transparent/SOLID state:
+			// its see-through pixels get drawn as opaque black instead of being
+			// alpha-tested away, and shaders (which key off the CUTOUT_MIPPED
+			// layer for wind-sway/leaf effects) skip it entirely.
+			Blocks.cherry_leaves.setGraphicsLevel(mc.gameSettings.shaders || mc.gameSettings.fancyGraphics);
 			this.renderDistanceChunks = this.mc.gameSettings.renderDistanceChunks;
 
 			if (this.viewFrustum != null) {

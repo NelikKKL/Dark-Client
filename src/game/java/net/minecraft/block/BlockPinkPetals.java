@@ -46,6 +46,16 @@ public class BlockPinkPetals extends Block {
 		return false;
 	}
 
+	/**+
+	 * Without this override, Block#getBlockLayer() defaults to SOLID:
+	 * the transparent pixels of the petals texture would be drawn as
+	 * opaque black instead of being alpha-tested away (same class of
+	 * bug as the standalone cherry leaves block).
+	 */
+	public net.minecraft.util.EnumWorldBlockLayer getBlockLayer() {
+		return net.minecraft.util.EnumWorldBlockLayer.CUTOUT;
+	}
+
 	public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state) {
 		return null;
 	}

@@ -25,6 +25,13 @@ public class BlockCherryLeaves extends BlockLeaves {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.valueOf(true))
 				.withProperty(DECAYABLE, Boolean.valueOf(true)));
 		this.setCreativeTab(CreativeTabs.tabDecorations);
+		// Standalone leaves block, not part of the leaves/leaves2 variant
+		// families that RenderGlobal#loadRenderers() normally toggles between
+		// fancy/fast graphics - give it a safe transparent/CUTOUT_MIPPED
+		// default here so it never renders as an opaque black square before
+		// that first happens (RenderGlobal now updates it the same as the
+		// other leaves too, see loadRenderers()).
+		this.setGraphicsLevel(true);
 	}
 
 	public int getBlockColor() {
