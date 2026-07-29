@@ -51,7 +51,9 @@ public enum DefaultCapes {
 	YEARN(28, "Yearn", new ResourceLocation("eagler:capes/28.yearn.png")),
 	COPPER(29, "Copper", new ResourceLocation("eagler:capes/29.copper.png")),
 	EYES(30, "Eyes", new ResourceLocation("eagler:capes/30.eyes.png")),
-	FOUNDER(31, "Founder", new ResourceLocation("eagler:capes/31.founder.png"));
+	FOUNDER(31, "Founder", new ResourceLocation("eagler:capes/31.founder.png"));,
+  PAN(32, "Pan", new ResourceLocation("eagler:capes/32.pan.png"));,
+  ZOMBIE_HORSE(33, "Zombie horse", new ResourceLocation("eagler:capes/33.zombie_horse.png"));
 	
 	public static final DefaultCapes[] defaultCapesMap = new DefaultCapes[32];
 	
