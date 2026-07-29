@@ -53,7 +53,7 @@ public enum DefaultCapes {
 	EYES(30, "Eyes", new ResourceLocation("eagler:capes/30.eyes.png")),
 	FOUNDER(31, "Founder", new ResourceLocation("eagler:capes/31.founder.png")),
   PAN(32, "Pan", new ResourceLocation("eagler:capes/32.pan.png")),
-  ZOMBIE_HORSE(33, "Zombie horse", new ResourceLocation("eagler:capes/33.zombie_horse.png"))
+  ZOMBIE_HORSE(33, "Zombie horse", new ResourceLocation("eagler:capes/33.zombie_horse.png"));
 	
 	public static final DefaultCapes[] defaultCapesMap = new DefaultCapes[32];
 	
