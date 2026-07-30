@@ -67,6 +67,8 @@ public class FurnaceRecipes {
 		this.addSmelting(Items.rabbit, new ItemStack(Items.cooked_rabbit), 0.35F);
 		this.addSmelting(Items.mutton, new ItemStack(Items.cooked_mutton), 0.35F);
 		this.addSmeltingRecipeForBlock(Blocks.cobblestone, new ItemStack(Blocks.stone), 0.1F);
+		// ===== NewBlood: Netherite content =====
+		this.addSmeltingRecipeForBlock(Blocks.ancient_debris, new ItemStack(Items.netherite_scrap), 2.0F);
 		this.addSmeltingRecipe(new ItemStack(Blocks.stonebrick, 1, BlockStoneBrick.DEFAULT_META),
 				new ItemStack(Blocks.stonebrick, 1, BlockStoneBrick.CRACKED_META), 0.1F);
 		this.addSmelting(Items.clay_ball, new ItemStack(Items.brick), 0.3F);

@@ -339,6 +339,14 @@ public class Block {
 	 * models, 2 for TESR's, 1 for liquids, -1 is no render
 	 */
 	public int getRenderType() {
+		// ===== NewBlood: XRay content =====
+		// Checked live (not cached) by RenderChunk during chunk mesh
+		// building, so toggling this set + forcing a re-render of nearby
+		// chunks makes blocks genuinely disappear rather than just drawing
+		// a highlight box over/through them.
+		if (net.newblood.module.modules.XRay.isHidden(this)) {
+			return -1;
+		}
 		return 3;
 	}
 

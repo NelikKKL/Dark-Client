@@ -134,6 +134,10 @@ public abstract class Render<T extends Entity> {
 			return;
 		}
 		GlStateManager.disableLighting();
+		GlStateManager.enableBlend();
+		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+		GlStateManager.enableAlpha();
+		GlStateManager.alphaFunc(GL_GREATER, 0.1F);
 		TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
 		EaglerTextureAtlasSprite textureatlassprite = texturemap.getAtlasSprite("minecraft:blocks/fire_layer_0");
 		EaglerTextureAtlasSprite textureatlassprite1 = texturemap.getAtlasSprite("minecraft:blocks/fire_layer_1");
@@ -183,6 +187,7 @@ public abstract class Render<T extends Entity> {
 		}
 
 		tessellator.draw();
+		GlStateManager.disableBlend();
 		GlStateManager.popMatrix();
 		GlStateManager.enableLighting();
 	}

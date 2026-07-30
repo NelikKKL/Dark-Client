@@ -55,14 +55,33 @@ public class RenderEntityItem extends Render<EntityItem> {
 		} else {
 			boolean flag = parIBakedModel.isGui3d();
 			int i = this.func_177078_a(itemstack);
-			float f = 0.25F;
-			float f1 = MathHelper.sin(((float) itemIn.getAge() + parFloat1) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
 			float f2 = parIBakedModel.getItemCameraTransforms()
 					.getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
-			GlStateManager.translate((float) parDouble1, (float) parDouble2 + f1 + 0.25F * f2, (float) parDouble3);
-			if (flag || this.renderManager.options != null) {
+
+			if (flag) {
+				// 3D block-model items (e.g. a dropped pumpkin) keep the
+				// classic hover + slow spin - they already read fine as a
+				// small floating object.
+				float f1 = MathHelper.sin(((float) itemIn.getAge() + parFloat1) / 10.0F + itemIn.hoverStart) * 0.1F
+						+ 0.1F;
+				GlStateManager.translate((float) parDouble1, (float) parDouble2 + f1 + 0.25F * f2,
+						(float) parDouble3);
 				float f3 = (((float) itemIn.getAge() + parFloat1) / 20.0F + itemIn.hoverStart) * 57.295776F;
 				GlStateManager.rotate(f3, 0.0F, 1.0F, 0.0F);
+			} else {
+				// Flat 2D icon items (tools, ingots, etc): sit still,
+				// directly on the ground, at a per-item fixed resting
+				// angle instead of floating/spinning - "item physics".
+				GlStateManager.translate((float) parDouble1, (float) parDouble2 + 0.06F + 0.25F * f2,
+						(float) parDouble3);
+				EaglercraftRandom restRand = new EaglercraftRandom((long) itemIn.getEntityId());
+				float restYaw = restRand.nextFloat() * 360.0F;
+				float restTiltX = (restRand.nextFloat() - 0.5F) * 24.0F;
+				float restTiltZ = (restRand.nextFloat() - 0.5F) * 24.0F;
+				GlStateManager.rotate(restYaw, 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F); // lay the sprite flat on the ground
+				GlStateManager.rotate(restTiltX, 1.0F, 0.0F, 0.0F);
+				GlStateManager.rotate(restTiltZ, 0.0F, 1.0F, 0.0F);
 			}
 
 			if (!flag) {
@@ -139,6 +158,7 @@ public class RenderEntityItem extends Render<EntityItem> {
 				GlStateManager.popMatrix();
 			} else {
 				GlStateManager.pushMatrix();
+				GlStateManager.scale(1.5F, 1.5F, 1.5F);
 				ibakedmodel.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GROUND);
 				this.itemRenderer.renderItem(itemstack, ibakedmodel);
 				GlStateManager.popMatrix();

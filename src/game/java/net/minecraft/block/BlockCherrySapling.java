@@ -55,7 +55,7 @@ public class BlockCherrySapling extends BlockBush implements IGrowable {
 		IBlockState log = Blocks.cherry_log.getDefaultState();
 		IBlockState leaves = Blocks.cherry_leaves.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY,
 				Boolean.valueOf(false));
-		WorldGenerator gen = new WorldGenTrees(false, 5 + rand.nextInt(3), log, leaves, true);
+		WorldGenerator gen = new WorldGenTrees(false, 5 + rand.nextInt(3), log, leaves, false);
 		world.setBlockToAir(pos);
 		if (!gen.generate(world, rand, pos)) {
 			world.setBlockState(pos, state, 4);

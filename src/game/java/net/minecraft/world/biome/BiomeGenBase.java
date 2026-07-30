@@ -130,6 +130,7 @@ public abstract class BiomeGenBase {
 	public static BiomeGenBase mesa;
 	public static BiomeGenBase mesaPlateau_F;
 	public static BiomeGenBase mesaPlateau;
+	public static BiomeGenBase cherryGrove;
 	public static BiomeGenBase field_180279_ad;
 	protected static NoiseGeneratorPerlin temperatureNoise;
 	protected static NoiseGeneratorPerlin GRASS_COLOR_NOISE;
@@ -585,6 +586,8 @@ public abstract class BiomeGenBase {
 				.setHeight(height_HighPlateaus);
 		mesaPlateau = (new BiomeGenMesa(39, false, false)).setColor(13274213).setBiomeName("Mesa Plateau")
 				.setHeight(height_HighPlateaus);
+		cherryGrove = (new BiomeGenCherryGrove(40)).setColor(0xFFB7C5).setBiomeName("Cherry Grove")
+				.setHeight(height_LowHills);
 		field_180279_ad = ocean;
 
 		plains.createMutation();

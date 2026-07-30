@@ -73,6 +73,9 @@ public class ChunkProviderHell implements IChunkProvider {
 	private final WorldGenGlowStone2 field_177468_v = new WorldGenGlowStone2();
 	private final WorldGenerator field_177467_w = new WorldGenMinable(Blocks.quartz_ore.getDefaultState(), 14,
 			BlockHelper.forBlock(Blocks.netherrack));
+	// ===== NewBlood: Netherite content =====
+	private final WorldGenerator newblood_ancientDebrisGen = new WorldGenMinable(Blocks.ancient_debris.getDefaultState(),
+			3, BlockHelper.forBlock(Blocks.netherrack));
 	private final WorldGenHellLava field_177473_x = new WorldGenHellLava(Blocks.flowing_lava, true);
 	private final WorldGenHellLava field_177472_y = new WorldGenHellLava(Blocks.flowing_lava, false);
 	private final GeneratorBushFeature field_177471_z = new GeneratorBushFeature(Blocks.brown_mushroom);
@@ -399,6 +402,19 @@ public class ChunkProviderHell implements IChunkProvider {
 		for (int l1 = 0; l1 < 16; ++l1) {
 			this.field_177473_x.generate(this.worldObj, this.hellRNG,
 					blockpos.add(this.hellRNG.nextInt(16), this.hellRNG.nextInt(108) + 10, this.hellRNG.nextInt(16)));
+		}
+
+		// ===== NewBlood: Netherite content =====
+		// Small veins spread across the whole nether height, same generation
+		// style as the quartz ore above but rarer, so ancient debris can
+		// actually be mined and turned into netherite.
+		for (int nb1 = 0; nb1 < 2; ++nb1) {
+			this.newblood_ancientDebrisGen.generate(this.worldObj, this.hellRNG, blockpos.add(this.hellRNG.nextInt(16),
+					this.hellRNG.nextInt(22) + 4, this.hellRNG.nextInt(16)));
+		}
+		for (int nb2 = 0; nb2 < 2; ++nb2) {
+			this.newblood_ancientDebrisGen.generate(this.worldObj, this.hellRNG, blockpos.add(this.hellRNG.nextInt(16),
+					this.hellRNG.nextInt(90) + 15, this.hellRNG.nextInt(16)));
 		}
 
 		BlockFalling.fallInstantly = false;

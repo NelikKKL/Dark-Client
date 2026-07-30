@@ -78,8 +78,12 @@ public class NewBloodClient {
 
 	/**
 	 * Called from inside EntityRenderer's camera-transformed matrix, same spot
-	 * vanilla draws its block-selection outline - so absolute world coordinates
-	 * are valid for ESP boxes / tracer lines drawn here.
+	 * vanilla draws its block-selection outline. IMPORTANT: coordinates here
+	 * must be CAMERA-RELATIVE, not absolute world coordinates - vanilla's own
+	 * RenderGlobal#drawSelectionBox explicitly subtracts the interpolated
+	 * player/camera position before drawing its box for exactly this reason.
+	 * Subtract mc.getRenderManager().viewerPosX/Y/Z from every world position
+	 * before handing it to any draw call in onRender().
 	 */
 	public static void onWorldRender(float partialTicks) {
 		if (INSTANCE == null) return;
