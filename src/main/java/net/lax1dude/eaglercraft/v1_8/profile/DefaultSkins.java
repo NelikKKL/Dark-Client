@@ -52,7 +52,7 @@ public enum DefaultSkins {
 	NELIK(29, "Nelik", new ResourceLocation("eagler:skins/25.Nelik.png"), SkinModel.ALEX),
 	MIKU(30, "Miku", new ResourceLocation("eagler:skins/26.miku.png"), SkinModel.ALEX);
 	
-	public static final DefaultSkins[] defaultSkinsMap = new DefaultSkins[32];
+	public static final DefaultSkins[] defaultSkinsMap = new DefaultSkins[values().length];
 	
 	public final int id;
 	public final String name;
