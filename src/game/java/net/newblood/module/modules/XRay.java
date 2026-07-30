@@ -88,7 +88,7 @@ public class XRay extends Module {
 		double camY = rm.viewerPosY;
 		double camZ = rm.viewerPosZ;
 
-		int r = (int) range.getValue();
+		int r = range.getValue().intValue();
 		BlockPos center = new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ);
 		BlockPos from = center.add(-r, -r, -r);
 		BlockPos to = center.add(r, r, r);

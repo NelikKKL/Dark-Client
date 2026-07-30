@@ -63,7 +63,7 @@ public class RecipeNetheriteUpgrade implements IRecipe {
 		ItemStack diamondStack = findDiamondItem(inv);
 		ItemStack result = new ItemStack(this.netheriteItem, 1);
 		if (diamondStack != null && diamondStack.hasTagCompound()) {
-			result.setTagCompound(diamondStack.getTagCompound().copy());
+			result.setTagCompound((net.minecraft.nbt.NBTTagCompound) diamondStack.getTagCompound().copy());
 		}
 		return result;
 	}
