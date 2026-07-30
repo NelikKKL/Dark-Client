@@ -192,23 +192,32 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 			double d4 = (double) (this.rotationPitch - this.lastReportedPitch);
 			boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || this.positionUpdateTicks >= 20;
 			boolean flag3 = d3 != 0.0D || d4 != 0.0D;
+
+			// ===== NewBlood: NoFall content =====
+			// Fall damage is calculated server-side (even against the local
+			// integrated server) from the onGround transitions reported in
+			// these movement packets - real EntityPlayerSP#onGround above is
+			// left untouched (still accurate for client-side physics/anim),
+			// only what's told to the server is spoofed.
+			boolean reportedOnGround = net.newblood.module.modules.NoFall.spoofOnGround(this, this.onGround);
+
 			if (this.ridingEntity == null) {
 				if (flag2 && flag3) {
 					this.sendQueue.addToSendQueue(
 							new C03PacketPlayer.C06PacketPlayerPosLook(this.posX, this.getEntityBoundingBox().minY,
-									this.posZ, this.rotationYaw, this.rotationPitch, this.onGround));
+									this.posZ, this.rotationYaw, this.rotationPitch, reportedOnGround));
 				} else if (flag2) {
 					this.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(this.posX,
-							this.getEntityBoundingBox().minY, this.posZ, this.onGround));
+							this.getEntityBoundingBox().minY, this.posZ, reportedOnGround));
 				} else if (flag3) {
 					this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(this.rotationYaw,
-							this.rotationPitch, this.onGround));
+							this.rotationPitch, reportedOnGround));
 				} else {
-					this.sendQueue.addToSendQueue(new C03PacketPlayer(this.onGround));
+					this.sendQueue.addToSendQueue(new C03PacketPlayer(reportedOnGround));
 				}
 			} else {
 				this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.motionX, -999.0D,
-						this.motionZ, this.rotationYaw, this.rotationPitch, this.onGround));
+						this.motionZ, this.rotationYaw, this.rotationPitch, reportedOnGround));
 				flag2 = false;
 			}
 

@@ -70,7 +70,7 @@ public class Tracers extends Module {
 			double iz = e.lastTickPosZ + (e.posZ - e.lastTickPosZ) * partialTicks - camZ;
 			double halfW = e.width / 2.0;
 
-			GlStateManager.color(1.0F, 1.0F, 0.0F, 0.6F);
+			GlStateManager.color(0.75F, 0.75F, 0.75F, 0.8F);
 			wr.begin(1, DefaultVertexFormats.POSITION); // GL_LINES
 			wr.pos(eyeX, eyeY, eyeZ).endVertex();
 			wr.pos(ix, iy + e.height / 2.0, iz).endVertex();

@@ -12,7 +12,6 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 /**+
@@ -55,33 +54,36 @@ public class RenderEntityItem extends Render<EntityItem> {
 		} else {
 			boolean flag = parIBakedModel.isGui3d();
 			int i = this.func_177078_a(itemstack);
-			float f2 = parIBakedModel.getItemCameraTransforms()
-					.getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
 
-			if (flag) {
-				// 3D block-model items (e.g. a dropped pumpkin) keep the
-				// classic hover + slow spin - they already read fine as a
-				// small floating object.
-				float f1 = MathHelper.sin(((float) itemIn.getAge() + parFloat1) / 10.0F + itemIn.hoverStart) * 0.1F
-						+ 0.1F;
-				GlStateManager.translate((float) parDouble1, (float) parDouble2 + f1 + 0.25F * f2,
-						(float) parDouble3);
-				float f3 = (((float) itemIn.getAge() + parFloat1) / 20.0F + itemIn.hoverStart) * 57.295776F;
-				GlStateManager.rotate(f3, 0.0F, 1.0F, 0.0F);
-			} else {
-				// Flat 2D icon items (tools, ingots, etc): sit still,
-				// directly on the ground, at a per-item fixed resting
-				// angle instead of floating/spinning - "item physics".
-				GlStateManager.translate((float) parDouble1, (float) parDouble2 + 0.06F + 0.25F * f2,
-						(float) parDouble3);
-				EaglercraftRandom restRand = new EaglercraftRandom((long) itemIn.getEntityId());
-				float restYaw = restRand.nextFloat() * 360.0F;
+			// "Item physics": no more hover/bob or continuous spin for
+			// EITHER flat 2D sprites (tools, ingots...) or 3D block-model
+			// items (dropped blocks) - both now sit still, flush with the
+			// ground, at a per-item fixed resting angle (seeded from the
+			// entity id, so it's stable frame-to-frame instead of random
+			// noise). Only a tiny epsilon is added vertically to avoid
+			// z-fighting with the ground itself.
+			GlStateManager.translate((float) parDouble1, (float) parDouble2 + 0.002F, (float) parDouble3);
+
+			EaglercraftRandom restRand = new EaglercraftRandom((long) itemIn.getEntityId());
+			float restYaw = restRand.nextFloat() * 360.0F;
+			GlStateManager.rotate(restYaw, 0.0F, 1.0F, 0.0F);
+
+			if (!flag) {
+				// Flat 2D icon: lay it down on its face instead of
+				// standing it up, then add a small random tilt so a pile
+				// of dropped items doesn't look perfectly uniform.
 				float restTiltX = (restRand.nextFloat() - 0.5F) * 24.0F;
 				float restTiltZ = (restRand.nextFloat() - 0.5F) * 24.0F;
-				GlStateManager.rotate(restYaw, 0.0F, 1.0F, 0.0F);
-				GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F); // lay the sprite flat on the ground
+				GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
 				GlStateManager.rotate(restTiltX, 1.0F, 0.0F, 0.0F);
 				GlStateManager.rotate(restTiltZ, 0.0F, 1.0F, 0.0F);
+			} else {
+				// 3D block item: stays upright (it already looks like a
+				// small physical block), just a slight settle-tilt.
+				float restTiltX = (restRand.nextFloat() - 0.5F) * 10.0F;
+				float restTiltZ = (restRand.nextFloat() - 0.5F) * 10.0F;
+				GlStateManager.rotate(restTiltX, 1.0F, 0.0F, 0.0F);
+				GlStateManager.rotate(restTiltZ, 0.0F, 0.0F, 1.0F);
 			}
 
 			if (!flag) {
@@ -158,7 +160,7 @@ public class RenderEntityItem extends Render<EntityItem> {
 				GlStateManager.popMatrix();
 			} else {
 				GlStateManager.pushMatrix();
-				GlStateManager.scale(1.5F, 1.5F, 1.5F);
+				GlStateManager.scale(1.1F, 1.1F, 1.1F);
 				ibakedmodel.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GROUND);
 				this.itemRenderer.renderItem(itemstack, ibakedmodel);
 				GlStateManager.popMatrix();

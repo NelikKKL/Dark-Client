@@ -76,6 +76,7 @@ public class CraftingManager {
 		this.recipes.add(new RecipeRepairItem());
 		(new RecipesBanners()).addRecipes(this);
 		(new RecipesNetherite()).addRecipes(this);
+		(new RecipesCherry()).addRecipes(this);
 		this.addRecipe(new ItemStack(Items.paper, 3), new Object[] { "###", Character.valueOf('#'), Items.reeds });
 		this.addShapelessRecipe(new ItemStack(Items.book, 1),
 				new Object[] { Items.paper, Items.paper, Items.paper, Items.leather });

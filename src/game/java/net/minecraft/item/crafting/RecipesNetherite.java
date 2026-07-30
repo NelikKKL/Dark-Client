@@ -11,12 +11,11 @@ import net.minecraft.item.ItemStack;
  *
  *  - Netherite ingot: 4 netherite scrap in the 4 edge slots, gold
  *    ingots in the remaining 5 slots (corners + center).
- *  - Upgrade: any diamond tool/armor piece + 1 netherite ingot
- *    (shapeless) turns into the matching netherite piece. This is a
- *    plain crafting recipe rather than a real smithing operation, so
- *    enchantments on the diamond item are NOT carried over - that's a
- *    limitation of bolting this onto 1.8's recipe system rather than
- *    adding an actual smithing table block.
+ *  - Upgrade: a diamond tool/armor piece + 1 netherite ingot turns into
+ *    the matching netherite piece, keeping enchantments/custom name/
+ *    unbreakable etc - see RecipeNetheriteUpgrade, which copies the
+ *    diamond item's NBT across instead of using a blank template output
+ *    the way a plain shapeless recipe would.
  */
 public class RecipesNetherite {
 
@@ -25,23 +24,17 @@ public class RecipesNetherite {
 				new Object[] { "GSG", "SGS", "GSG", Character.valueOf('G'), Items.gold_ingot, Character.valueOf('S'),
 						Items.netherite_scrap });
 
-		parCraftingManager.addShapelessRecipe(new ItemStack(Items.netherite_sword, 1),
-				new Object[] { Items.diamond_sword, Items.netherite_ingot });
-		parCraftingManager.addShapelessRecipe(new ItemStack(Items.netherite_pickaxe, 1),
-				new Object[] { Items.diamond_pickaxe, Items.netherite_ingot });
-		parCraftingManager.addShapelessRecipe(new ItemStack(Items.netherite_axe, 1),
-				new Object[] { Items.diamond_axe, Items.netherite_ingot });
-		parCraftingManager.addShapelessRecipe(new ItemStack(Items.netherite_shovel, 1),
-				new Object[] { Items.diamond_shovel, Items.netherite_ingot });
-		parCraftingManager.addShapelessRecipe(new ItemStack(Items.netherite_hoe, 1),
-				new Object[] { Items.diamond_hoe, Items.netherite_ingot });
-		parCraftingManager.addShapelessRecipe(new ItemStack(Items.netherite_helmet, 1),
-				new Object[] { Items.diamond_helmet, Items.netherite_ingot });
-		parCraftingManager.addShapelessRecipe(new ItemStack(Items.netherite_chestplate, 1),
-				new Object[] { Items.diamond_chestplate, Items.netherite_ingot });
-		parCraftingManager.addShapelessRecipe(new ItemStack(Items.netherite_leggings, 1),
-				new Object[] { Items.diamond_leggings, Items.netherite_ingot });
-		parCraftingManager.addShapelessRecipe(new ItemStack(Items.netherite_boots, 1),
-				new Object[] { Items.diamond_boots, Items.netherite_ingot });
+		// Diamond -> netherite upgrades preserve enchantments/custom name/
+		// unbreakable etc from the diamond item - see RecipeNetheriteUpgrade.
+		parCraftingManager.addRecipe(new RecipeNetheriteUpgrade(Items.diamond_sword, Items.netherite_sword));
+		parCraftingManager.addRecipe(new RecipeNetheriteUpgrade(Items.diamond_pickaxe, Items.netherite_pickaxe));
+		parCraftingManager.addRecipe(new RecipeNetheriteUpgrade(Items.diamond_axe, Items.netherite_axe));
+		parCraftingManager.addRecipe(new RecipeNetheriteUpgrade(Items.diamond_shovel, Items.netherite_shovel));
+		parCraftingManager.addRecipe(new RecipeNetheriteUpgrade(Items.diamond_hoe, Items.netherite_hoe));
+		parCraftingManager.addRecipe(new RecipeNetheriteUpgrade(Items.diamond_helmet, Items.netherite_helmet));
+		parCraftingManager
+				.addRecipe(new RecipeNetheriteUpgrade(Items.diamond_chestplate, Items.netherite_chestplate));
+		parCraftingManager.addRecipe(new RecipeNetheriteUpgrade(Items.diamond_leggings, Items.netherite_leggings));
+		parCraftingManager.addRecipe(new RecipeNetheriteUpgrade(Items.diamond_boots, Items.netherite_boots));
 	}
 }

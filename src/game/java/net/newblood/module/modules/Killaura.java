@@ -5,19 +5,24 @@ import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.newblood.module.Module;
+import net.newblood.module.settings.BooleanSetting;
 import net.newblood.module.settings.NumberSetting;
 
 public class Killaura extends Module {
 
 	private final NumberSetting range = new NumberSetting("Range", 4.0, 2.0, 6.0, 0.5);
 	private final NumberSetting cps = new NumberSetting("Hits/sec", 8.0, 1.0, 20.0, 1.0);
+	private final BooleanSetting throughWalls = new BooleanSetting("Through Walls", false);
 	private int cooldown;
 
 	public Killaura() {
 		super("Killaura", "Auto-attacks the nearest target in range", Category.COMBAT);
 		addSetting(range);
 		addSetting(cps);
+		addSetting(throughWalls);
 	}
 
 	@Override
@@ -44,6 +49,13 @@ public class Killaura extends Module {
 		return (float) (Math.toDegrees(Math.atan2(dz, dx)) - 90.0);
 	}
 
+	private boolean hasLineOfSight(EntityLivingBase target) {
+		Vec3 eye = new Vec3(mc.thePlayer.posX, mc.thePlayer.posY + mc.thePlayer.getEyeHeight(), mc.thePlayer.posZ);
+		Vec3 targetPos = new Vec3(target.posX, target.posY + target.height * 0.5, target.posZ);
+		MovingObjectPosition hit = mc.theWorld.rayTraceBlocks(eye, targetPos, false, true, false);
+		return hit == null || hit.typeOfHit == MovingObjectPosition.MovingObjectType.MISS;
+	}
+
 	private EntityLivingBase findTarget() {
 		double r = range.getValue();
 		List<Entity> nearby = mc.theWorld.getEntitiesWithinAABBExcludingEntity(mc.thePlayer,
@@ -58,6 +70,7 @@ public class Killaura extends Module {
 			if (living.isDead || living.getHealth() <= 0) continue;
 			double dist = mc.thePlayer.getDistanceSqToEntity(living);
 			if (dist < bestDist && dist <= r * r) {
+				if (!throughWalls.getValue() && !hasLineOfSight(living)) continue;
 				bestDist = dist;
 				best = living;
 			}

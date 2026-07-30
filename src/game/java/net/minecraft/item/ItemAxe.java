@@ -45,4 +45,27 @@ public class ItemAxe extends ItemTool {
 				&& block.getMaterial() != Material.vine ? super.getStrVsBlock(itemstack, block)
 						: this.efficiencyOnProperMaterial;
 	}
+
+	// ===== NewBlood: Netherite/Cherry content =====
+	// Right-clicking a cherry log with an axe strips it, same as vanilla's
+	// 1.13+ stripping mechanic - stripped_cherry_log existed as a block
+	// already but had no way to actually obtain it in survival.
+	@Override
+	public boolean onItemUse(ItemStack stack, net.minecraft.entity.player.EntityPlayer player, net.minecraft.world.World world,
+			net.minecraft.util.BlockPos pos, net.minecraft.util.EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (!world.isRemote) {
+			net.minecraft.block.state.IBlockState state = world.getBlockState(pos);
+			if (state.getBlock() == Blocks.cherry_log) {
+				world.setBlockState(pos, Blocks.stripped_cherry_log.getDefaultState()
+						.withProperty(net.minecraft.block.BlockRotatedPillar.AXIS,
+								state.getValue(net.minecraft.block.BlockRotatedPillar.AXIS)),
+						3);
+				if (!player.capabilities.isCreativeMode) {
+					stack.damageItem(1, player);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -236,7 +236,12 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-		this.noClip = this.isSpectator();
+		// ===== NewBlood: NoClip content =====
+		// This used to unconditionally reset noClip based on spectator mode
+		// alone, silently undoing NoClip#onEnable/onTick's noClip=true every
+		// tick (since a survival-mode player is never "isSpectator()") -
+		// which is why blocks still blocked movement with the module on.
+		this.noClip = this.isSpectator() || net.newblood.module.modules.NoClip.isActive(this);
 		if (this.isSpectator()) {
 			this.onGround = false;
 		}

@@ -14,6 +14,8 @@ import net.newblood.module.Module;
  */
 public class NoClip extends Module {
 
+	private static volatile boolean enabledStatic;
+
 	private boolean wasJumpDown;
 	private boolean wasSneakDown;
 
@@ -21,8 +23,16 @@ public class NoClip extends Module {
 		super("NoClip", "Pass through blocks; jump/sneak step you up/down a block", Category.MOVEMENT);
 	}
 
+	/** Called from EntityPlayer#onUpdate to survive its per-tick noClip reset. */
+	public static boolean isActive(net.minecraft.entity.player.EntityPlayer player) {
+		if (!enabledStatic) return false;
+		net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getMinecraft();
+		return mc.thePlayer != null && player.getUniqueID().equals(mc.thePlayer.getUniqueID());
+	}
+
 	@Override
 	public void onEnable() {
+		enabledStatic = true;
 		if (mc.thePlayer == null) return;
 		mc.thePlayer.noClip = true;
 		mc.thePlayer.capabilities.allowFlying = true;
@@ -34,6 +44,7 @@ public class NoClip extends Module {
 
 	@Override
 	public void onDisable() {
+		enabledStatic = false;
 		if (mc.thePlayer == null) return;
 		mc.thePlayer.noClip = false;
 		mc.thePlayer.capabilities.isFlying = false;
