@@ -29,7 +29,7 @@ public class AttackAnimation extends Module {
 	public void onTick() {
 		if (mc.thePlayer == null) return;
 		if (mc.thePlayer.isSwingInProgress) {
-			mc.thePlayer.swingProgressInt += (int) extraSteps.getValue();
+			mc.thePlayer.swingProgressInt += extraSteps.getValue().intValue();
 		}
 	}
 }
