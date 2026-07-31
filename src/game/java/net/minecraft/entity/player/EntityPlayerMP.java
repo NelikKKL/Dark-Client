@@ -280,6 +280,16 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
+		// ===== NewBlood: NoClip content =====
+		// This class does NOT call super.onUpdate(), so EntityPlayer's own
+		// noClip-respecting fix never reached the server-side player entity
+		// (which exists even in singleplayer, via the integrated server) -
+		// the server kept thinking noClip was false and its own collision
+		// check in NetHandlerPlayServer#processPlayer kept pushing the
+		// player back out of blocks even though the client thought it was
+		// clipping through them fine.
+		this.noClip = this.isSpectator() || net.newblood.module.modules.NoClip.isActive(this);
+
 		this.theItemInWorldManager.updateBlockRemoving();
 		--this.respawnInvulnerabilityTicks;
 		if (this.hurtResistantTime > 0) {

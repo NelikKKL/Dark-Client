@@ -1058,25 +1058,30 @@ public class Item {
 				(new Item()).setUnlocalizedName("netheriteScrap").setCreativeTab(CreativeTabs.tabMaterials));
 		registerItem(432, (String) "netherite_ingot",
 				(new Item()).setUnlocalizedName("netheriteIngot").setCreativeTab(CreativeTabs.tabMaterials));
-		registerItem(433, (String) "netherite_sword",
-				(new ItemSword(Item.ToolMaterial.NETHERITE)).setUnlocalizedName("swordNetherite"));
-		registerItem(434, (String) "netherite_shovel",
-				(new ItemSpade(Item.ToolMaterial.NETHERITE)).setUnlocalizedName("shovelNetherite"));
-		registerItem(435, (String) "netherite_pickaxe",
-				(new ItemPickaxe(Item.ToolMaterial.NETHERITE)).setUnlocalizedName("pickaxeNetherite"));
-		registerItem(436, (String) "netherite_axe",
-				(new ItemAxe(Item.ToolMaterial.NETHERITE)).setUnlocalizedName("hatchetNetherite"));
-		registerItem(437, (String) "netherite_hoe",
-				(new ItemHoe(Item.ToolMaterial.NETHERITE)).setUnlocalizedName("hoeNetherite"));
+		registerItem(433, (String) "netherite_sword", (new ItemSword(Item.ToolMaterial.NETHERITE))
+				.setUnlocalizedName("swordNetherite").setCreativeTab(CreativeTabs.tabCombat));
+		registerItem(434, (String) "netherite_shovel", (new ItemSpade(Item.ToolMaterial.NETHERITE))
+				.setUnlocalizedName("shovelNetherite").setCreativeTab(CreativeTabs.tabTools));
+		registerItem(435, (String) "netherite_pickaxe", (new ItemPickaxe(Item.ToolMaterial.NETHERITE))
+				.setUnlocalizedName("pickaxeNetherite").setCreativeTab(CreativeTabs.tabTools));
+		registerItem(436, (String) "netherite_axe", (new ItemAxe(Item.ToolMaterial.NETHERITE))
+				.setUnlocalizedName("hatchetNetherite").setCreativeTab(CreativeTabs.tabTools));
+		registerItem(437, (String) "netherite_hoe", (new ItemHoe(Item.ToolMaterial.NETHERITE))
+				.setUnlocalizedName("hoeNetherite").setCreativeTab(CreativeTabs.tabTools));
 		registerItem(438, (String) "netherite_helmet",
-				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 0)).setUnlocalizedName("helmetNetherite"));
+				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 0)).setUnlocalizedName("helmetNetherite")
+						.setCreativeTab(CreativeTabs.tabCombat));
 		registerItem(439, (String) "netherite_chestplate",
-				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 1)).setUnlocalizedName("chestplateNetherite"));
+				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 1)).setUnlocalizedName("chestplateNetherite")
+						.setCreativeTab(CreativeTabs.tabCombat));
 		registerItem(440, (String) "netherite_leggings",
-				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 2)).setUnlocalizedName("leggingsNetherite"));
+				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 2)).setUnlocalizedName("leggingsNetherite")
+						.setCreativeTab(CreativeTabs.tabCombat));
 		registerItem(441, (String) "netherite_boots",
-				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 3)).setUnlocalizedName("bootsNetherite"));
-		registerItem(442, (String) "cherry_door", (new ItemDoor(Blocks.cherry_door)).setUnlocalizedName("doorCherry"));
+				(new ItemArmor(ItemArmor.ArmorMaterial.NETHERITE, 5, 3)).setUnlocalizedName("bootsNetherite")
+						.setCreativeTab(CreativeTabs.tabCombat));
+		registerItem(442, (String) "cherry_door", (new ItemDoor(Blocks.cherry_door)).setUnlocalizedName("doorCherry")
+				.setCreativeTab(CreativeTabs.tabDecorations));
 	}
 
 	/**+

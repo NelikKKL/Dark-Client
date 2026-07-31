@@ -1557,23 +1557,31 @@ public class Block {
 
 		// ===== NewBlood: Cherry Grove + Netherite content =====
 		registerBlock(198, (String) "cherry_planks", (new Block(Material.wood)).setHardness(2.0F)
-				.setResistance(5.0F).setStepSound(soundTypeWood).setUnlocalizedName("plankCherry"));
-		registerBlock(199, (String) "cherry_log", (new BlockCherryLog()).setUnlocalizedName("logCherry"));
-		registerBlock(200, (String) "stripped_cherry_log",
-				(new BlockCherryLog()).setUnlocalizedName("strippedLogCherry"));
-		registerBlock(201, (String) "cherry_leaves", (new BlockCherryLeaves()).setUnlocalizedName("leavesCherry"));
+				.setResistance(5.0F).setStepSound(soundTypeWood).setUnlocalizedName("plankCherry")
+				.setCreativeTab(CreativeTabs.tabBlock));
+		registerBlock(199, (String) "cherry_log",
+				(new BlockCherryLog()).setUnlocalizedName("logCherry").setCreativeTab(CreativeTabs.tabBlock));
+		registerBlock(200, (String) "stripped_cherry_log", (new BlockCherryLog())
+				.setUnlocalizedName("strippedLogCherry").setCreativeTab(CreativeTabs.tabBlock));
+		registerBlock(201, (String) "cherry_leaves",
+				(new BlockCherryLeaves()).setUnlocalizedName("leavesCherry").setCreativeTab(CreativeTabs.tabDecorations));
 		registerBlock(202, (String) "cherry_sapling",
 				(new BlockCherrySapling()).setHardness(0.0F).setStepSound(soundTypeGrass)
-						.setUnlocalizedName("saplingCherry"));
+						.setUnlocalizedName("saplingCherry").setCreativeTab(CreativeTabs.tabDecorations));
 		registerBlock(203, (String) "cherry_door", (new BlockDoor(Material.wood)).setHardness(3.0F)
-				.setStepSound(soundTypeWood).setUnlocalizedName("doorCherry").disableStats());
+				.setStepSound(soundTypeWood).setUnlocalizedName("doorCherry").disableStats()
+				.setCreativeTab(CreativeTabs.tabDecorations));
 		registerBlock(204, (String) "cherry_trapdoor", (new BlockTrapDoor(Material.wood)).setHardness(3.0F)
-				.setStepSound(soundTypeWood).setUnlocalizedName("trapdoorCherry"));
-		registerBlock(205, (String) "pink_petals", (new BlockPinkPetals()).setUnlocalizedName("pinkPetals"));
+				.setStepSound(soundTypeWood).setUnlocalizedName("trapdoorCherry")
+				.setCreativeTab(CreativeTabs.tabDecorations));
+		registerBlock(205, (String) "pink_petals",
+				(new BlockPinkPetals()).setUnlocalizedName("pinkPetals").setCreativeTab(CreativeTabs.tabDecorations));
 		registerBlock(206, (String) "ancient_debris", (new Block(Material.rock)).setHardness(30.0F)
-				.setResistance(1200.0F).setStepSound(soundTypeStone).setUnlocalizedName("ancientDebris"));
+				.setResistance(1200.0F).setStepSound(soundTypeStone).setUnlocalizedName("ancientDebris")
+				.setCreativeTab(CreativeTabs.tabBlock));
 		registerBlock(207, (String) "netherite_block", (new Block(Material.iron)).setHardness(50.0F)
-				.setResistance(1200.0F).setStepSound(soundTypeMetal).setUnlocalizedName("netheriteBlock"));
+				.setResistance(1200.0F).setStepSound(soundTypeMetal).setUnlocalizedName("netheriteBlock")
+				.setCreativeTab(CreativeTabs.tabBlock));
 
 		blockRegistry.validateKey();
 

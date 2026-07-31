@@ -88,11 +88,55 @@ public class NewBloodClient {
 	public static void onWorldRender(float partialTicks) {
 		if (INSTANCE == null) return;
 		if (!isSafeEnvironment()) return;
-		for (Module m : INSTANCE.moduleManager.getModules()) {
-			if (m.isEnabled()) {
-				m.onRender(partialTicks);
+
+		boolean undoBob = cancelViewBob(partialTicks);
+		try {
+			for (Module m : INSTANCE.moduleManager.getModules()) {
+				if (m.isEnabled()) {
+					m.onRender(partialTicks);
+				}
+			}
+		} finally {
+			if (undoBob) {
+				net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager.popMatrix();
 			}
 		}
+	}
+
+	/**
+	 * Vanilla's view-bob (EntityRenderer#setupViewBobbing) applies a GL
+	 * translate + two rotates to the camera matrix BEFORE onWorldRender is
+	 * ever called, so every module drawing world-space content here (tracer
+	 * lines, ESP/ClickTP boxes) inherits that sway - while the 2D crosshair
+	 * overlay never moves. That mismatch is what makes tracers look
+	 * disconnected from the crosshair while walking. This pushes a fresh
+	 * matrix and applies the exact inverse of that same transform so
+	 * anything drawn afterwards (until the matching popMatrix above) lines
+	 * up with the true, non-bobbing camera center instead.
+	 */
+	private static boolean cancelViewBob(float partialTicks) {
+		Minecraft mc = Minecraft.getMinecraft();
+		if (mc.thePlayer == null || !mc.gameSettings.viewBobbing) return false;
+		if (!(mc.getRenderViewEntity() instanceof net.minecraft.entity.player.EntityPlayer)) return false;
+
+		net.minecraft.entity.player.EntityPlayer p = (net.minecraft.entity.player.EntityPlayer) mc
+				.getRenderViewEntity();
+		float f = p.distanceWalkedModified - p.prevDistanceWalkedModified;
+		float f1 = -(p.distanceWalkedModified + f * partialTicks);
+		float f2 = p.prevCameraYaw + (p.cameraYaw - p.prevCameraYaw) * partialTicks;
+		float f3 = p.prevCameraPitch + (p.cameraPitch - p.prevCameraPitch) * partialTicks;
+
+		net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager.pushMatrix();
+		// Exact inverse of setupViewBobbing, applied in reverse order.
+		net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager.rotate(-f3, 1.0F, 0.0F, 0.0F);
+		net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager.rotate(
+				-Math.abs(net.minecraft.util.MathHelper.cos(f1 * 3.1415927F - 0.2F) * f2) * 5.0F, 1.0F, 0.0F, 0.0F);
+		net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager
+				.rotate(-net.minecraft.util.MathHelper.sin(f1 * 3.1415927F) * f2 * 3.0F, 0.0F, 0.0F, 1.0F);
+		net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager.translate(
+				-(net.minecraft.util.MathHelper.sin(f1 * 3.1415927F) * f2 * 0.5F),
+				Math.abs(net.minecraft.util.MathHelper.cos(f1 * 3.1415927F) * f2), 0.0F);
+		return true;
 	}
 
 	/** Call once per rendered frame with the current partial tick time. */

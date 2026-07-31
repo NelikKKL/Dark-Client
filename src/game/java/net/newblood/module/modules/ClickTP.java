@@ -6,25 +6,49 @@ import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.newblood.module.Module;
 
 /**
- * Aim at a block: a red "glass" cube is drawn over it (purely local/visual
- * - no real block is placed, nothing is sent to the server). Left-click
- * while it's showing teleports you to that spot instead of mining/hitting
- * whatever's under the crosshair - the normal attack/mine action that a
- * left click would otherwise trigger is suppressed for a few ticks via
- * Minecraft#leftClickCounter, same mechanism vanilla itself uses to stop
- * an accidental double-hit after closing a GUI.
+ * Aim anywhere within render distance (not just normal interaction reach):
+ * a red "glass" cube is drawn over the farthest point your camera can
+ * actually see along that line - either the first solid block hit, or,
+ * if you're looking at open sky/across a gap with nothing solid in the
+ * way, the farthest point still within render distance. Purely local/
+ * visual - no real block is placed, nothing is sent to the server.
+ *
+ * Left-click while it's showing teleports you to that spot instead of
+ * mining/hitting whatever's under the crosshair - the normal attack/mine
+ * action that a left click would otherwise trigger is suppressed for a
+ * few ticks via Minecraft#leftClickCounter, same mechanism vanilla itself
+ * uses to stop an accidental double-hit after closing a GUI.
  */
 public class ClickTP extends Module {
 
 	private boolean wasMouseDown;
 
 	public ClickTP() {
-		super("ClickTP", "Aim at a block, left-click the red preview to teleport there", Category.MOVEMENT);
+		super("ClickTP", "Aim anywhere in render distance, left-click the red preview to teleport there",
+				Category.MOVEMENT);
+	}
+
+	/** Farthest visible point along the crosshair, out to render distance. */
+	private Vec3 findTarget(float partialTicks) {
+		if (mc.thePlayer == null || mc.theWorld == null) return null;
+
+		Vec3 eye = mc.thePlayer.getPositionEyes(partialTicks);
+		Vec3 look = mc.thePlayer.getLook(partialTicks);
+		double maxDist = Math.max(16, mc.gameSettings.renderDistanceChunks * 16);
+		Vec3 far = eye.addVector(look.xCoord * maxDist, look.yCoord * maxDist, look.zCoord * maxDist);
+
+		MovingObjectPosition hit = mc.theWorld.rayTraceBlocks(eye, far, false, true, false);
+		if (hit != null && hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && hit.hitVec != null) {
+			return hit.hitVec;
+		}
+		// Nothing solid in the way - target the farthest point still
+		// within render distance instead of disappearing.
+		return far;
 	}
 
 	@Override
@@ -36,9 +60,9 @@ public class ClickTP extends Module {
 		wasMouseDown = mouseDown;
 
 		if (trigger) {
-			MovingObjectPosition mop = mc.objectMouseOver;
-			if (mop != null && mop.hitVec != null && mop.getBlockPos() != null) {
-				mc.thePlayer.setPositionAndUpdate(mop.hitVec.xCoord, mop.hitVec.yCoord + 0.1, mop.hitVec.zCoord);
+			Vec3 target = findTarget(1.0F);
+			if (target != null) {
+				mc.thePlayer.setPositionAndUpdate(target.xCoord, target.yCoord + 0.1, target.zCoord);
 				mc.thePlayer.motionX = mc.thePlayer.motionY = mc.thePlayer.motionZ = 0.0;
 				mc.thePlayer.fallDistance = 0.0F;
 				// Swallow the mining/attack action this same click would
@@ -51,14 +75,13 @@ public class ClickTP extends Module {
 	@Override
 	public void onRender(float partialTicks) {
 		if (mc.thePlayer == null || mc.theWorld == null) return;
-		MovingObjectPosition mop = mc.objectMouseOver;
-		if (mop == null || mop.getBlockPos() == null) return;
+		Vec3 target = findTarget(partialTicks);
+		if (target == null) return;
 
-		BlockPos pos = mop.getBlockPos();
 		RenderManager rm = mc.getRenderManager();
-		double x = pos.getX() - rm.viewerPosX;
-		double y = pos.getY() - rm.viewerPosY;
-		double z = pos.getZ() - rm.viewerPosZ;
+		double x = Math.floor(target.xCoord) - rm.viewerPosX;
+		double y = Math.floor(target.yCoord) - rm.viewerPosY;
+		double z = Math.floor(target.zCoord) - rm.viewerPosZ;
 
 		GlStateManager.disableTexture2D();
 		GlStateManager.disableDepth();
