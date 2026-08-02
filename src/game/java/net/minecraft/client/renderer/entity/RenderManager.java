@@ -80,6 +80,7 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityBat;
+import net.minecraft.entity.passive.EntityBee;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityHorse;
@@ -184,6 +185,7 @@ public class RenderManager {
 		this.entityRenderMap.put(EntityVillager.class, new RenderVillager(this));
 		this.entityRenderMap.put(EntityIronGolem.class, new RenderIronGolem(this));
 		this.entityRenderMap.put(EntityBat.class, new RenderBat(this));
+		this.entityRenderMap.put(EntityBee.class, new RenderBee(this));
 		this.entityRenderMap.put(EntityGuardian.class, new RenderGuardian(this));
 		this.entityRenderMap.put(EntityDragon.class, new RenderDragon(this));
 		this.entityRenderMap.put(EntityEnderCrystal.class, new RenderEnderCrystal(this));

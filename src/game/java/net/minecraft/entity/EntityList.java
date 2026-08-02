@@ -60,6 +60,7 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityBat;
+import net.minecraft.entity.passive.EntityBee;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityHorse;
@@ -383,6 +384,7 @@ public class EntityList {
 		addMapping(EntityDragon.class, EntityDragon::new, "EnderDragon", 63);
 		addMapping(EntityWither.class, EntityWither::new, "WitherBoss", 64);
 		addMapping(EntityBat.class, EntityBat::new, "Bat", 65, 4996656, 986895);
+		addMapping(EntityBee.class, EntityBee::new, "Bee", 210, 15582019, 4592204);
 		addMapping(EntityWitch.class, EntityWitch::new, "Witch", 66, 3407872, 5349438);
 		addMapping(EntityEndermite.class, EntityEndermite::new, "Endermite", 67, 1447446, 7237230);
 		addMapping(EntityGuardian.class, EntityGuardian::new, "Guardian", 68, 5931634, 15826224);

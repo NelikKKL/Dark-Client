@@ -202,6 +202,9 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 						}
 					}
 
+					// ===== NewBlood: Bees & Honey content =====
+					this.tryPlaceBeeNest(world, random, blockpos, i);
+
 					return true;
 				} else {
 					return false;
@@ -209,6 +212,50 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 			}
 		} else {
 			return false;
+		}
+	}
+
+	/**
+	 * Bee nests only grow on oak/birch trees in vanilla - matched here by
+	 * checking the log block/variant this generator was configured with
+	 * (this same WorldGenTrees class is reused for several wood types, so
+	 * this can't just assume it's always oak). Base chance is low; having
+	 * flowers within a short radius of the trunk roughly doubles it, same
+	 * spirit as vanilla's real (much more complex) bee nest placement.
+	 */
+	private void tryPlaceBeeNest(World world, EaglercraftRandom random, BlockPos base, int height) {
+		if (this.metaWood.getBlock() != Blocks.log) {
+			return;
+		}
+		BlockPlanks.EnumType variant = this.metaWood.getValue(BlockOldLog.VARIANT);
+		if (variant != BlockPlanks.EnumType.OAK && variant != BlockPlanks.EnumType.BIRCH) {
+			return;
+		}
+
+		boolean flowersNearby = false;
+		for (BlockPos p : BlockPos.getAllInBox(base.add(-5, -1, -5), base.add(5, 2, 5))) {
+			if (world.getBlockState(p).getBlock() instanceof net.minecraft.block.BlockFlower) {
+				flowersNearby = true;
+				break;
+			}
+		}
+
+		int chanceOutOf1000 = flowersNearby ? 24 : 8;
+		if (random.nextInt(1000) >= chanceOutOf1000) {
+			return;
+		}
+
+		int trunkY = base.getY() + 2 + random.nextInt(Math.max(1, height - 3));
+		EnumFacing[] dirs = EnumFacing.Plane.HORIZONTAL.facings();
+		EnumFacing dir = dirs[random.nextInt(dirs.length)];
+		BlockPos trunkPos = new BlockPos(base.getX(), trunkY, base.getZ());
+		BlockPos nestPos = trunkPos.offset(dir);
+
+		if (world.isAirBlock(nestPos)) {
+			world.setBlockState(nestPos,
+					Blocks.bee_nest.getDefaultState().withProperty(net.minecraft.block.BlockBeeShelter.FACING,
+							dir.getOpposite()),
+					3);
 		}
 	}
 
