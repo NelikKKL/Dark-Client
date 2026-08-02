@@ -1089,14 +1089,28 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	private boolean tryUseTotem() {
 		ItemStack held = this.getHeldItem();
+		boolean inOffHand = false;
 		if (held == null || held.getItem() != net.minecraft.init.Items.totem_of_undying) {
-			return false;
+			// ===== NewBlood: Offhand content =====
+			// Vanilla checks both hands for a totem - only players have an
+			// offhand slot in this client, so this only applies to them.
+			if (this instanceof net.minecraft.entity.player.EntityPlayer) {
+				held = ((net.minecraft.entity.player.EntityPlayer) this).inventory.getOffHandItem();
+				inOffHand = true;
+			}
+			if (held == null || held.getItem() != net.minecraft.init.Items.totem_of_undying) {
+				return false;
+			}
 		}
 
 		if (!this.worldObj.isRemote) {
 			--held.stackSize;
 			if (held.stackSize <= 0) {
-				this.setCurrentItemOrArmor(0, null);
+				if (inOffHand) {
+					((net.minecraft.entity.player.EntityPlayer) this).inventory.offHandInventory[0] = null;
+				} else {
+					this.setCurrentItemOrArmor(0, null);
+				}
 			}
 
 			this.setHealth(1.0F);

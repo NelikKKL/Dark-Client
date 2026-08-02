@@ -278,6 +278,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		this.fogColor1 += (f2 - this.fogColor1) * 0.1F;
 		++this.rendererUpdateCount;
 		this.itemRenderer.updateEquippedItem();
+		this.itemRenderer.updateEquippedItemOffHand();
 		this.addRainParticles();
 		this.bossColorModifierPrev = this.bossColorModifier;
 		if (BossStatus.hasColorModifier) {
