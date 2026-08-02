@@ -48,8 +48,6 @@ public class InventoryPlayer implements IInventory {
 	 * pieces.
 	 */
 	public ItemStack[] armorInventory = new ItemStack[4];
-	// ===== NewBlood: Offhand content =====
-	public ItemStack[] offHandInventory = new ItemStack[1];
 	public int currentItem;
 	public EntityPlayer player;
 	private ItemStack itemStack;
@@ -64,11 +62,6 @@ public class InventoryPlayer implements IInventory {
 	 */
 	public ItemStack getCurrentItem() {
 		return this.currentItem < 9 && this.currentItem >= 0 ? this.mainInventory[this.currentItem] : null;
-	}
-
-	/** ===== NewBlood: Offhand content ===== */
-	public ItemStack getOffHandItem() {
-		return this.offHandInventory[0];
 	}
 
 	/**+
@@ -409,14 +402,8 @@ public class InventoryPlayer implements IInventory {
 	public ItemStack decrStackSize(int i, int j) {
 		ItemStack[] aitemstack = this.mainInventory;
 		if (i >= this.mainInventory.length) {
+			aitemstack = this.armorInventory;
 			i -= this.mainInventory.length;
-			if (i >= this.armorInventory.length) {
-				// ===== NewBlood: Offhand content =====
-				aitemstack = this.offHandInventory;
-				i -= this.armorInventory.length;
-			} else {
-				aitemstack = this.armorInventory;
-			}
 		}
 
 		if (aitemstack[i] != null) {
@@ -443,14 +430,8 @@ public class InventoryPlayer implements IInventory {
 	public ItemStack removeStackFromSlot(int i) {
 		ItemStack[] aitemstack = this.mainInventory;
 		if (i >= this.mainInventory.length) {
+			aitemstack = this.armorInventory;
 			i -= this.mainInventory.length;
-			if (i >= this.armorInventory.length) {
-				// ===== NewBlood: Offhand content =====
-				aitemstack = this.offHandInventory;
-				i -= this.armorInventory.length;
-			} else {
-				aitemstack = this.armorInventory;
-			}
 		}
 
 		if (aitemstack[i] != null) {
@@ -470,14 +451,6 @@ public class InventoryPlayer implements IInventory {
 		ItemStack[] aitemstack = this.mainInventory;
 		if (i >= aitemstack.length) {
 			i -= aitemstack.length;
-			if (i >= this.armorInventory.length) {
-				// ===== NewBlood: Offhand content =====
-				i -= this.armorInventory.length;
-				if (i < this.offHandInventory.length) {
-					this.offHandInventory[i] = itemstack;
-				}
-				return;
-			}
 			aitemstack = this.armorInventory;
 		}
 
@@ -517,16 +490,6 @@ public class InventoryPlayer implements IInventory {
 			}
 		}
 
-		// ===== NewBlood: Offhand content =====
-		for (int k = 0; k < this.offHandInventory.length; ++k) {
-			if (this.offHandInventory[k] != null) {
-				NBTTagCompound nbttagcompound2 = new NBTTagCompound();
-				nbttagcompound2.setByte("Slot", (byte) (k + 150));
-				this.offHandInventory[k].writeToNBT(nbttagcompound2);
-				parNBTTagList.appendTag(nbttagcompound2);
-			}
-		}
-
 		return parNBTTagList;
 	}
 
@@ -537,7 +500,6 @@ public class InventoryPlayer implements IInventory {
 	public void readFromNBT(NBTTagList parNBTTagList) {
 		this.mainInventory = new ItemStack[36];
 		this.armorInventory = new ItemStack[4];
-		this.offHandInventory = new ItemStack[1]; // ===== NewBlood: Offhand content =====
 
 		for (int i = 0; i < parNBTTagList.tagCount(); ++i) {
 			NBTTagCompound nbttagcompound = parNBTTagList.getCompoundTagAt(i);
@@ -551,11 +513,6 @@ public class InventoryPlayer implements IInventory {
 				if (j >= 100 && j < this.armorInventory.length + 100) {
 					this.armorInventory[j - 100] = itemstack;
 				}
-
-				// ===== NewBlood: Offhand content =====
-				if (j >= 150 && j < this.offHandInventory.length + 150) {
-					this.offHandInventory[j - 150] = itemstack;
-				}
 			}
 		}
 
@@ -565,8 +522,7 @@ public class InventoryPlayer implements IInventory {
 	 * Returns the number of slots in the inventory.
 	 */
 	public int getSizeInventory() {
-		// ===== NewBlood: Offhand content =====
-		return this.mainInventory.length + this.armorInventory.length + this.offHandInventory.length;
+		return this.mainInventory.length + 4;
 	}
 
 	/**+
@@ -576,11 +532,6 @@ public class InventoryPlayer implements IInventory {
 		ItemStack[] aitemstack = this.mainInventory;
 		if (i >= aitemstack.length) {
 			i -= aitemstack.length;
-			if (i >= this.armorInventory.length) {
-				// ===== NewBlood: Offhand content =====
-				i -= this.armorInventory.length;
-				return i < this.offHandInventory.length ? this.offHandInventory[i] : null;
-			}
 			aitemstack = this.armorInventory;
 		}
 
@@ -691,14 +642,6 @@ public class InventoryPlayer implements IInventory {
 			}
 		}
 
-		// ===== NewBlood: Offhand content =====
-		for (int k = 0; k < this.offHandInventory.length; ++k) {
-			if (this.offHandInventory[k] != null) {
-				this.player.dropItem(this.offHandInventory[k], true, false);
-				this.offHandInventory[k] = null;
-			}
-		}
-
 	}
 
 	/**+
@@ -779,11 +722,6 @@ public class InventoryPlayer implements IInventory {
 			this.armorInventory[j] = ItemStack.copyItemStack(playerInventory.armorInventory[j]);
 		}
 
-		// ===== NewBlood: Offhand content =====
-		for (int k = 0; k < this.offHandInventory.length; ++k) {
-			this.offHandInventory[k] = ItemStack.copyItemStack(playerInventory.offHandInventory[k]);
-		}
-
 		this.currentItem = playerInventory.currentItem;
 	}
 
@@ -805,11 +743,6 @@ public class InventoryPlayer implements IInventory {
 
 		for (int j = 0; j < this.armorInventory.length; ++j) {
 			this.armorInventory[j] = null;
-		}
-
-		// ===== NewBlood: Offhand content =====
-		for (int k = 0; k < this.offHandInventory.length; ++k) {
-			this.offHandInventory[k] = null;
 		}
 
 	}

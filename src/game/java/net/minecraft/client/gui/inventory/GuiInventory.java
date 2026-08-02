@@ -95,16 +95,6 @@ public class GuiInventory extends InventoryEffectRenderer {
 		int i = this.guiLeft;
 		int j = this.guiTop;
 		this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-
-		// ===== NewBlood: Offhand content =====
-		// No cutout for this slot in the background texture (it's a new
-		// addition to this GUI), so draw a plain slot-shaped frame by hand
-		// instead of leaving the item floating with no visual container.
-		int offhandX = i + 76;
-		int offhandY = j + 61;
-		drawRect(offhandX, offhandY, offhandX + 18, offhandY + 18, 0xFF8B8B8B);
-		drawRect(offhandX + 1, offhandY + 1, offhandX + 17, offhandY + 17, 0xFF373737);
-
 		GlStateManager.enableDepth();
 		drawEntityOnScreen(i + 51, j + 75, 30, (float) (i + 51) - this.oldMouseX,
 				(float) (j + 75 - 50) - this.oldMouseY, this.mc.thePlayer);

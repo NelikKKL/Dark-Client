@@ -53,9 +53,7 @@ public class ContainerPlayer extends Container {
 		for (int k = 0; k < 4; ++k) {
 			final int k2 = k;
 			this.addSlotToContainer(
-					new Slot(playerInventory,
-							playerInventory.mainInventory.length + playerInventory.armorInventory.length - 1 - k, 8,
-							8 + k * 18) {
+					new Slot(playerInventory, playerInventory.getSizeInventory() - 1 - k, 8, 8 + k * 18) {
 						public int getSlotStackLimit() {
 							return 1;
 						}
@@ -83,12 +81,6 @@ public class ContainerPlayer extends Container {
 		for (int i1 = 0; i1 < 9; ++i1) {
 			this.addSlotToContainer(new Slot(playerInventory, i1, 8 + i1 * 18, 142));
 		}
-
-		// ===== NewBlood: Offhand content =====
-		// Same position vanilla's real offhand slot uses: just left of the
-		// player model preview, below the crafting grid.
-		this.addSlotToContainer(new Slot(playerInventory,
-				playerInventory.mainInventory.length + playerInventory.armorInventory.length, 77, 62));
 
 		this.onCraftMatrixChanged(this.craftMatrix);
 	}

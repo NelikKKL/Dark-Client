@@ -48,19 +48,10 @@ public class BiomeGenCherryGrove extends BiomeGenBase {
 	}
 
 	@Override
-	public int getGrassColorAtPos(BlockPos pos) {
-		// Ground color should read as Plains regardless of Cherry Grove's
-		// own (cooler/wetter) temperature+rainfall values used elsewhere
-		// (tree growth chance etc) - Plains uses the BiomeGenBase default
-		// climate (0.5, 0.5), so that's hardcoded here directly.
-		return net.minecraft.world.ColorizerGrass.getGrassColor(0.5D, 0.5D);
-	}
-
-	@Override
 	public void decorate(World world, EaglercraftRandom rand, BlockPos chunkPos) {
 		super.decorate(world, rand, chunkPos);
 
-		int petalPatches = 14 + rand.nextInt(10);
+		int petalPatches = 6 + rand.nextInt(6);
 		for (int i = 0; i < petalPatches; ++i) {
 			int px = rand.nextInt(16) + 8;
 			int pz = rand.nextInt(16) + 8;

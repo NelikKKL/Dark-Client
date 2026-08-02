@@ -1069,77 +1069,11 @@ public abstract class EntityLivingBase extends Entity {
 			this.setAbsorptionAmount(this.getAbsorptionAmount() - (f1 - f));
 			if (f != 0.0F) {
 				float f2 = this.getHealth();
-				// ===== NewBlood: Totem of Undying content =====
-				if (f2 - f <= 0.0F && this.tryUseTotem()) {
-					return;
-				}
 				this.setHealth(f2 - f);
 				this.getCombatTracker().trackDamage(damagesource, f2, f);
 				this.setAbsorptionAmount(this.getAbsorptionAmount() - f);
 			}
 		}
-	}
-
-	/**
-	 * ===== NewBlood: Totem of Undying content =====
-	 * If this entity is holding a Totem of Undying, consumes it and
-	 * cancels an otherwise-fatal hit: health is set to 1, negative
-	 * potion effects are cleared, and a short regen/absorption/fire
-	 * resistance buff is granted - same as vanilla's totem save.
-	 */
-	private boolean tryUseTotem() {
-		ItemStack held = this.getHeldItem();
-		boolean inOffHand = false;
-		if (held == null || held.getItem() != net.minecraft.init.Items.totem_of_undying) {
-			// ===== NewBlood: Offhand content =====
-			// Vanilla checks both hands for a totem - only players have an
-			// offhand slot in this client, so this only applies to them.
-			if (this instanceof net.minecraft.entity.player.EntityPlayer) {
-				held = ((net.minecraft.entity.player.EntityPlayer) this).inventory.getOffHandItem();
-				inOffHand = true;
-			}
-			if (held == null || held.getItem() != net.minecraft.init.Items.totem_of_undying) {
-				return false;
-			}
-		}
-
-		if (!this.worldObj.isRemote) {
-			--held.stackSize;
-			if (held.stackSize <= 0) {
-				if (inOffHand) {
-					((net.minecraft.entity.player.EntityPlayer) this).inventory.offHandInventory[0] = null;
-				} else {
-					this.setCurrentItemOrArmor(0, null);
-				}
-			}
-
-			this.setHealth(1.0F);
-			this.clearActivePotions();
-			this.addPotionEffect(
-					new net.minecraft.potion.PotionEffect(net.minecraft.potion.Potion.regeneration.id, 900, 1));
-			this.addPotionEffect(
-					new net.minecraft.potion.PotionEffect(net.minecraft.potion.Potion.absorption.id, 100, 1));
-			this.addPotionEffect(
-					new net.minecraft.potion.PotionEffect(net.minecraft.potion.Potion.fireResistance.id, 800, 0));
-			this.worldObj.playSoundAtEntity(this, "random.totem", 1.0F, 1.0F);
-
-			// This old client has no dedicated TOTEM particle type, so this
-			// approximates the vanilla "totem save" burst with a mix of
-			// SPELL_INSTANT (bright white sparkle) and FIREWORKS_SPARK.
-			// World#spawnParticle (base class) doesn't reliably reach
-			// clients when called server-side - it just forwards to
-			// worldAccesses, not the player-broadcast path. WorldServer's
-			// own overload (below) properly sends S2APacketParticles to
-			// nearby players, so it's used explicitly here.
-			if (this.worldObj instanceof net.minecraft.world.WorldServer) {
-				net.minecraft.world.WorldServer ws = (net.minecraft.world.WorldServer) this.worldObj;
-				ws.spawnParticle(net.minecraft.util.EnumParticleTypes.SPELL_INSTANT, this.posX, this.posY + 0.9D,
-						this.posZ, 30, 0.6D, 0.9D, 0.6D, 0.4D);
-				ws.spawnParticle(net.minecraft.util.EnumParticleTypes.FIREWORKS_SPARK, this.posX, this.posY + 0.6D,
-						this.posZ, 12, 0.5D, 0.75D, 0.5D, 0.1D);
-			}
-		}
-		return true;
 	}
 
 	public CombatTracker getCombatTracker() {

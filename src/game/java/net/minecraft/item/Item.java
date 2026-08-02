@@ -952,8 +952,7 @@ public class Item {
 		registerItem(381, (String) "ender_eye", (new ItemEnderEye()).setUnlocalizedName("eyeOfEnder"));
 		registerItem(382, (String) "speckled_melon", (new Item()).setUnlocalizedName("speckledMelon")
 				.setPotionEffect(PotionHelper.speckledMelonEffect).setCreativeTab(CreativeTabs.tabBrewing));
-		registerItem(383, (String) "spawn_egg",
-				(new ItemMonsterPlacer()).setUnlocalizedName("monsterPlacer").setCreativeTab(CreativeTabs.tabMisc));
+		registerItem(383, (String) "spawn_egg", (new ItemMonsterPlacer()).setUnlocalizedName("monsterPlacer"));
 		registerItem(384, (String) "experience_bottle", (new ItemExpBottle()).setUnlocalizedName("expBottle"));
 		registerItem(385, (String) "fire_charge", (new ItemFireball()).setUnlocalizedName("fireball"));
 		registerItem(386, (String) "writable_book",
@@ -1083,22 +1082,6 @@ public class Item {
 						.setCreativeTab(CreativeTabs.tabCombat));
 		registerItem(442, (String) "cherry_door", (new ItemDoor(Blocks.cherry_door)).setUnlocalizedName("doorCherry")
 				.setCreativeTab(CreativeTabs.tabDecorations));
-
-		// ===== NewBlood: Bees & Honey content =====
-		registerItemBlock(Blocks.beehive, new GatedItemBlock(Blocks.beehive));
-		registerItemBlock(Blocks.bee_nest, new GatedItemBlock(Blocks.bee_nest));
-		registerItemBlock(Blocks.honeycomb_block, new GatedItemBlock(Blocks.honeycomb_block));
-		registerItemBlock(Blocks.honey_block, new GatedItemBlock(Blocks.honey_block));
-		registerItem(444, (String) "honeycomb",
-				(new Item()).setUnlocalizedName("honeycomb").setCreativeTab(CreativeTabs.tabMaterials));
-		registerItem(445, (String) "honey_bottle", (new ItemHoneyBottle()).setUnlocalizedName("honeyBottle")
-				.setContainerItem(Items.glass_bottle).setCreativeTab(CreativeTabs.tabFood));
-		registerItem(446, (String) "totem_of_undying",
-				(new Item()).setUnlocalizedName("totemOfUndying").setMaxStackSize(1)
-						.setCreativeTab(CreativeTabs.tabMisc));
-		// ===== NewBlood: Elytra content =====
-		registerItem(443, (String) "elytra", (new ItemArmor(ItemArmor.ArmorMaterial.ELYTRA, 6, 1))
-				.setUnlocalizedName("elytra").setCreativeTab(CreativeTabs.tabTransport));
 	}
 
 	/**+

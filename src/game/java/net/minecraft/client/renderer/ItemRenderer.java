@@ -58,10 +58,6 @@ public class ItemRenderer {
 	private ItemStack itemToRender;
 	private float equippedProgress;
 	private float prevEquippedProgress;
-	// ===== NewBlood: Offhand content =====
-	private ItemStack itemToRenderOffHand;
-	private float equippedProgressOffHand;
-	private float prevEquippedProgressOffHand;
 	private final RenderManager renderManager;
 	private final RenderItem itemRenderer;
 	/**+
@@ -307,20 +303,6 @@ public class ItemRenderer {
 		GlStateManager.rotate(60.0F, 0.0F, 1.0F, 0.0F);
 	}
 
-	/**
-	 * ===== NewBlood: Offhand content =====
-	 * Mirrored, simplified version of transformFirstPersonItem for the
-	 * offhand - just the equip-bob, no swing/eat/drink/block animation
-	 * (those all key off the single shared swing/use-item state, which is
-	 * still main-hand-only in this client).
-	 */
-	private void transformFirstPersonItemOffHand(float equipProgress) {
-		GlStateManager.translate(-0.56F, -0.52F, -0.71999997F);
-		GlStateManager.translate(0.0F, equipProgress * -0.6F, 0.0F);
-		GlStateManager.rotate(-45.0F, 0.0F, 1.0F, 0.0F);
-		GlStateManager.scale(0.4F, 0.4F, 0.4F);
-	}
-
 	/**+
 	 * Renders the active item in the player's hand when in first
 	 * person mode. Args: partialTickTime
@@ -374,19 +356,6 @@ public class ItemRenderer {
 		GlStateManager.popMatrix();
 		GlStateManager.disableRescaleNormal();
 		RenderHelper.disableStandardItemLighting();
-
-		// ===== NewBlood: Offhand content =====
-		if (this.itemToRenderOffHand != null) {
-			float fOff = 1.0F - (this.prevEquippedProgressOffHand
-					+ (this.equippedProgressOffHand - this.prevEquippedProgressOffHand) * partialTicks);
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.pushMatrix();
-			this.transformFirstPersonItemOffHand(fOff);
-			this.renderItem(entityplayersp, this.itemToRenderOffHand, ItemCameraTransforms.TransformType.FIRST_PERSON);
-			GlStateManager.popMatrix();
-			GlStateManager.disableRescaleNormal();
-			RenderHelper.disableStandardItemLighting();
-		}
 	}
 
 	/**+
@@ -559,32 +528,6 @@ public class ItemRenderer {
 			this.equippedItemSlot = entityplayersp.inventory.currentItem;
 		}
 
-	}
-
-	/**
-	 * ===== NewBlood: Offhand content =====
-	 * Same equip-bob tracking as updateEquippedItem, for the offhand slot.
-	 */
-	public void updateEquippedItemOffHand() {
-		this.prevEquippedProgressOffHand = this.equippedProgressOffHand;
-		EntityPlayerSP entityplayersp = this.mc.thePlayer;
-		ItemStack itemstack = entityplayersp.inventory.getOffHandItem();
-		boolean flag;
-		if (this.itemToRenderOffHand != null && itemstack != null) {
-			flag = !this.itemToRenderOffHand.getIsItemStackEqual(itemstack);
-		} else if (this.itemToRenderOffHand == null && itemstack == null) {
-			flag = false;
-		} else {
-			flag = true;
-		}
-
-		float f = 0.4F;
-		float f1 = flag ? 0.0F : 1.0F;
-		float f2 = MathHelper.clamp_float(f1 - this.equippedProgressOffHand, -f, f);
-		this.equippedProgressOffHand += f2;
-		if (this.equippedProgressOffHand < 0.1F) {
-			this.itemToRenderOffHand = itemstack;
-		}
 	}
 
 	/**+
